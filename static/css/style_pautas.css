@@ -1,0 +1,292 @@
+/* ==================================== */
+/* 1. VARIABLES Y ESTILOS BASE */
+/* ==================================== */
+:root {
+    --primary-color: #E53935; /* Rojo */
+    --secondary-color: #00897b; /* Teal */
+    --bg-color: #f8f8f8; /* Fondo general */
+    --card-border: #eee;
+    --text-dark: #333;
+    --text-light: #666;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+    --max-width: 1280px;
+    --padding-x: 1rem;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-dark);
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+.container {
+    max-width: var(--max-width);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--padding-x);
+    padding-right: var(--padding-x);
+}
+
+a {
+    text-decoration: none;
+    color: var(--text-dark);
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--primary-color);
+}
+
+/* Estilos de Iconos Lucide */
+.icon {
+    width: 1rem;
+    height: 1rem;
+    color: var(--primary-color);
+    margin-right: 0.25rem;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Estilo para el logo con ícono  */
+.header__logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    line-height: 1.1; 
+}
+
+.logo-image {
+    width: 5rem; 
+    height: 5rem;
+    margin-bottom: 0.25rem; 
+    object-fit: contain; /* Asegura que el logo se vea bien sin recortarse */
+}
+
+     /* ==================================== */
+/* 2. HEADER */
+/* ==================================== */
+.header {
+    box-shadow: var(--shadow-sm);
+    background-color: white;
+    border-bottom: 1px solid var(--card-border);
+}
+
+.header__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.header__nav {
+    display: none; /* Oculto por defecto en móvil */
+    gap: 2rem;
+    font-size: 1.125rem;
+    color: var(--text-light);
+}
+
+.header__search-button {
+    color: var(--text-light);
+    padding: 0.5rem;
+    border-radius: 9999px;
+    display: none;
+}
+
+.header__menu-button {
+    display: block; /* Visible en móvil */
+    color: var(--text-light);
+    padding: 0.5rem;
+    border-radius: 9999px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* Media Query: Escritorio (Desktop) */
+@media (min-width: 768px) {
+    .header__nav {
+        display: flex;
+    }
+    .header__search-button {
+        display: block;
+    }
+    .header__menu-button {
+        display: none;
+    }
+}
+    /* ==================================== */
+    /* 3. CONTENIDO PRINCIPAL (PAUTAS) */
+    /* ==================================== */
+    .guidelines-section {
+        padding-top: 3rem;
+        padding-bottom: 4rem;
+        background-color: white;
+        min-height: 80vh;
+        /* Asegura un buen espacio */
+        border-radius: 0.5rem;
+        box-shadow: var(--shadow-sm);
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .guidelines-header {
+        text-align: center;
+        margin-bottom: 2.5rem;
+    }
+
+    .guidelines-header h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: var(--primary-color);
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+    }
+
+    .guidelines-header p {
+        font-size: 1.125rem;
+        color: var(--text-light);
+    }
+
+    .guidelines-content h2 {
+        font-size: 1.5rem;
+        color: var(--primary-color);
+        border-bottom: 2px solid var(--card-border);
+        padding-bottom: 0.5rem;
+        margin-top: 2rem;
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .guidelines-content h2 .icon {
+        color: var(--primary-color);
+    }
+
+    .guidelines-content h3 {
+        font-size: 1.25rem;
+        color: var(--text-dark);
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+        font-weight: 600;
+    }
+
+    .guidelines-content p {
+        margin-bottom: 1rem;
+        color: var(--text-dark);
+    }
+
+    .guidelines-content ul {
+        list-style: none;
+        padding-left: 0;
+        margin-bottom: 1.5rem;
+    }
+
+    .guidelines-content li {
+        position: relative;
+        padding-left: 1.75rem;
+        margin-bottom: 0.75rem;
+        font-size: 1rem;
+    }
+
+    .guidelines-content li::before {
+        content: "\2713";
+        /* Tilde de verificación (Checkmark) */
+        position: absolute;
+        left: 0;
+        color: var(--primary-color);
+        font-weight: bold;
+    }
+
+    .contact-box {
+        background-color: #fcebeb;
+        /* Fondo claro para la caja, basado en el rojo */
+        border-left: 5px solid var(--primary-color);
+        /* Borde en color primario (Rojo) */
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        margin-top: 2.5rem;
+        font-size: 0.95rem;
+    }
+
+    .contact-box p {
+        margin: 0.5rem 0;
+    }
+
+    /* ==================================== */
+    /* 4. FOOTER (COMPLETO) */
+    /* ==================================== */
+    .footer {
+    background-color: white;
+    border-top: 1px solid var(--card-border);
+}
+
+.footer__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding-top: 2.5rem;
+    padding-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .footer__grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.footer__logo-footer {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.footer__section-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+
+.footer__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--text-light);
+    line-height: 2;
+}
+
+.footer__social {
+    display: flex;
+    gap: 1rem;
+    color: var(--text-light);
+}
+
+.footer__social a {
+    padding: 0.25rem;
+    display: block;
+}
+
+.footer__copy {
+    border-top: 1px solid var(--card-border);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    text-align: center;
+}
+
+.footer__copy-text {
+    font-size: 0.75rem;
+    color: var(--text-light);
+}

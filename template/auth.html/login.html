@@ -1,0 +1,14 @@
+<h2>Formulario de registro</h2>
+<form method="POST">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">
+    Registrarme
+  </button>
+</form>
+
+<p>
+  Ya tenes una cuenta?
+  <a href="{% url 'login'%}">Iniciar sesión</a>
+</p>
+

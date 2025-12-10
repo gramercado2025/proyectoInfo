@@ -1,0 +1,230 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pautas de la Comunidad del Blog de Triskel Radio</title>
+
+    <!-- Carga de Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="{% static 'css/style_pautas.css' %}">
+
+</head>
+
+<body>
+
+    <!-- 1. HEADER (Barra de Navegación) -->
+    <header class="header">
+        <div class="container header__container">
+
+            <a href="#" class="header__logo logo-with-icon">
+                <img src="{% static 'imagenes/logo radio.jpg' %}" alt="Logo de Mi Blog"
+                    onerror="this.onerror=null;this.src='https://placehold.co/60x60/f8f8f8/E53935?text=Logo';"
+                    class="logo-image">
+                Nuestro Blog
+            </a>
+
+            <!-- Navegación -->
+            <nav class="header__nav">
+                <a href="{% url 'home' %}">Inicio</a>
+                <a href="#">Categorías</a>
+                <a href="#">Eventos</a>
+                <a href="#">Contacto</a>
+                <a href="{% url 'pautas' %}/a>">Pautas de la Comunidad</a>
+            </nav>
+
+            <!-- Icono de Búsqueda (lucide: search) -->
+            <button class="header__search-button" aria-label="Buscar">
+                <!-- Icono de Búsqueda -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-search">
+                    <circle cx="11" cy="11" r="8" />
+                    <path d="m21 21-4.3-4.3" />
+                </svg>
+            </button>
+
+            <!-- Menú móvil (Hamburguesa) -->
+            <button class="header__menu-button" aria-label="Abrir menú">
+                <!-- Icono de Menú -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-menu">
+                    <line x1="4" x2="20" y1="12" y2="12" />
+                    <line x1="4" x2="20" y1="6" y2="6" />
+                    <line x1="4" x2="20" y1="18" y2="18" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+
+    <!-- 2. CONTENIDO PRINCIPAL: PAUTAS DE COMUNIDAD -->
+    <main class="container">
+        <section class="guidelines-section">
+            <div class="container guidelines-header">
+                <h1>Pautas de la Comunidad de TriskelBlog</h1>
+                <p>Nuestra guía para un diálogo respetuoso y constructivo sobre tecnología y desarrollo web.</p>
+            </div>
+
+            <div class="guidelines-content container">
+
+                <p>
+                    Este Blog es un espacio dedicado a la difusión de Novedades, Eventos de Radio Triskel, de Artículos 
+                    sobre música, grupos e interpretes tanto de habla hispana como Internacionales . Al participar en
+                    nuestra sección de comentarios y foros, aceptas seguir estas
+                    pautas. Mantener un ambiente positivo es responsabilidad de todos.
+                </p>
+
+                <!-- I. SÉ RESPETUOSO Y CONSTRUCTIVO -->
+                <h2><i data-lucide="heart" class="icon"></i>1. Ética y Respeto</h2>
+
+                <p><strong>La Regla de Oro: Trata a los demás como te gustaría ser tratado.</strong> El desacuerdo es
+                    bienvenido, el odio no lo es. Mantenemos una política de tolerancia cero contra:</p>
+                <ul>
+                    <li>Ataques personales, acoso o insultos dirigidos a otros usuarios o autores.</li>
+                    <li>Lenguaje discriminatorio, racista, sexista, homofóbico o de cualquier otra forma de odio.</li>
+                    <li>Amenazas, intimidación o incitación a la violencia.</li>
+                    <li>Suplantación de identidad.</li>
+                </ul>
+
+                <!-- II. REGLAS SOBRE EL CONTENIDO -->
+                <h2><i data-lucide="message-square" class="icon"></i>2. Contenido Relevante</h2>
+
+                <p>Asegúrate de que tus comentarios añadan valor a la discusión y se relacionen con el tema del
+                    artículo. Evita:</p>
+                <ul>
+                    <li>**Spam:** Publicidad, enlaces de afiliados, promociones personales o comerciales excesivas.</li>
+                    <li>**Trolling o Desvío:** Comentarios diseñados únicamente para provocar o desviar el hilo de la
+                        conversación.</li>
+                    <li>**Información Privada:** No publiques información personal tuya o de terceros.</li>
+                    <li>**Material Ilegal:** Contenido que viole derechos de autor, sea ilegal o promueva actividades
+                        delictivas.</li>
+                </ul>
+
+                <h3>Enlaces externos</h3>
+                <p>Puedes compartir enlaces a fuentes relevantes y útiles, pero nos reservamos el derecho de eliminar
+                    aquellos que parezcan spam o que dirijan a contenido malicioso o inapropiado.</p>
+
+                <!-- III. MODERACIÓN Y CONSEJOS PRÁCTICOS -->
+                <h2><i data-lucide="users" class="icon"></i>3. Consejos de Interacción</h2>
+
+                <ul>
+                    <li>**Sé Claro y Conciso:** El uso de mayúsculas sostenidas ("CAPS LOCK") se considera gritar y es
+                        descortés.</li>
+                    <li>**Acepta la Crítica Constructiva:** Si alguien señala un error técnico o una alternativa,
+                        recíbelo como parte del proceso de aprendizaje.</li>
+                    <li>**Reporta, No Respondas:** Si ves un comentario que viola estas pautas, por favor, repórtalo al
+                        equipo de moderación en lugar de entrar en una discusión acalorada.</li>
+                    <li>**Propiedad de tu Contenido:** Al publicar, nos concedes una licencia no exclusiva para mostrar
+                        tu contenido, pero tú conservas la propiedad del mismo.</li>
+                </ul>
+
+                <!-- IV. APLICACIÓN DE LAS PAUTAS -->
+                <h2><i data-lucide="gavel" class="icon"></i>4. Aplicación de las Pautas</h2>
+
+                <p>El equipo de Blog de Radio Triskel se reserva el derecho de:</p>
+                <ol>
+                    <li>Editar o eliminar cualquier comentario que consideremos una violación a estas reglas.</li>
+                    <li>Emitir advertencias o prohibiciones temporales a los usuarios que violen repetidamente las
+                        pautas.</li>
+                    <li>Prohibir permanentemente a los usuarios en casos de violaciones graves, como el acoso o el
+                        discurso de odio.</li>
+                </ol>
+                <p>Las decisiones de los moderadores son finales y se toman para preservar la integridad de la
+                    comunidad.</p>
+
+                <!-- Box de Contacto -->
+                <div class="contact-box">
+                    <p>
+                        Si tienes alguna pregunta sobre estas pautas, o si deseas reportar una violación, por favor
+                        contáctanos directamente:
+                    </p>
+                    <p>
+                        <strong>Email de Soporte:</strong> <a href="mailto:soporte@blog.com">soporte@TriskelBlog.com</a>
+                    </p>
+                    <p>
+                        <strong>Revisión de Pautas:</strong> Estas pautas pueden ser actualizadas periódicamente. Por
+                        favor, revísalas cada cierto tiempo.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- 4. FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <!-- Columna 1: Info Blog -->
+                <div>
+                    <h3 class="footer__logo-footer">Blog Radio Triskel</h3>
+                    <p class="widget__text">Tu estación de radio en línea con la mejor mezcla de música y contenidos.</p>
+                </div>
+                <!-- Columna 2: Enlaces Rápidos -->
+                <div>
+                    <h4 class="footer__section-title">Enlaces Rápidos</h4>
+                    <ul class="footer__list">
+                        <li><a href="{% url 'home' %}">Inicio</a></li>
+                        <li><a href="#">Categorías</a></li>
+                        <li><a href="#">Eventos</a></li>
+                        <li><a href="#">Contacto</a></li>
+                        <li><a href="{% url 'pautas' %}">Pautas de la Comunidad</a></li>
+
+                    </ul>
+                </div>
+                <!-- Columna 3: Categorías -->
+                <div>
+                    <h4 class="footer__section-title">Categorías</h4>
+                    <ul class="footer__list">
+                        <li><a href="#">Lo mejor de</a></li>
+                        <li><a href="#">Lo nuevo de </a></li>
+                        <li><a href="#">Grupos Icónicos</a></li>
+                        <li><a href="#">Novedades de la radio</a></li>
+                    </ul>
+                </div>
+                <!-- Columna 4: Síguenos (Social) -->
+                <div>
+                    <h4 class="footer__section-title">Síguenos</h4>
+                    <div class="footer__social">
+                        <!-- Íconos Sociales -->
+                        <a href="#" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                            </svg></a>
+
+                        <a href="#" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram">
+                                <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+                            </svg></a>
+                        <a href="#" aria-label="Email"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail">
+                                <rect width="20" height="16" x="2" y="4" rx="2" />
+                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                            </svg></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer__copy">
+            <p class="footer__copy-text">© 2025 Blog de Triskel Radio. Proyecto Final - Grupo 2 - Informatorio Etapa 2 -
+                Todos los derechos reservados.</p>
+        </div>
+    </footer>
+    <!-- Lógica JavaScript para inicializar íconos -->
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>
