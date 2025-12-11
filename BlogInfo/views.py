@@ -2,6 +2,9 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from .models import Post
 from django.db.models import Count
+from .forms import FormularioComentario
+from .models import Post, Comentario # Necesitas Post y Comentario
+from django.shortcuts import render, get_object_or_404, redirect
 
 # Create your views here.
 def home(request):
@@ -19,10 +22,29 @@ def pautas(request):
     #return HttpResponse("Bienvenido a la página prncipal")
     return render(request,'pautas_Blog.html')
 
-def detalle_articulo(request,pk):
+def detalle_articulo(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    context = {"post": post}
-    #return HttpResponse("Bienvenido a la página prncipal")
-    return render(request,'DetalleArticulo.html',context)
+    comentarios = post.comentarios.all().order_by('-fecha_comentario') 
+    if request.method == 'POST':
+        form = FormularioComentario(request.POST)
+        
+        if not request.user.is_authenticated: #Verificar que el usuario esté logueado antes de procesar
+            return redirect('blog_auth:login') 
+
+        if form.is_valid():
+            nuevo_comentario = form.save(commit=False)
+            nuevo_comentario.post = post 
+            nuevo_comentario.autor_comentario = request.user 
+            nuevo_comentario.save()
+            return redirect('detalle_articulo', pk=post.pk) 
+            
+    else:
+        form = FormularioComentario()
+    context = {
+        "post": post,
+        "comentarios": comentarios,        
+        "form_comentario": form,           
+    }
+    return render(request, 'DetalleArticulo.html', context)
 
 

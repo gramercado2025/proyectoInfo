@@ -14,16 +14,18 @@ Including another URLconf
 1. Import the include() function: from django.urls import include, path
 2. Add a URL to urlpatterns: path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from blog_auth import views
+from . import views
+
+app_name = "blog_auth"
 
 urlpatterns = [
+    # Estas URLs están prefijadas por 'auth/' desde el archivo principal
     path('registro', views.registro, name='registro'),
-    path('login', views.login, name='login'),
-    path('logout', views.logout, name='logout')
+    path('login', views.login_usuario, name='login'),
+    path('logout', views.logout_usuario, name='logout'),
 ]
 
 # Servir archivos media en desarrollo

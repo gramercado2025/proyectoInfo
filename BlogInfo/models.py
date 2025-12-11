@@ -47,7 +47,7 @@ class Post(models.Model):
 class Comentario(models.Model):
     autor_comentario = models.ForeignKey(User, on_delete=models.CASCADE)
     contenido_comentario = models.TextField()
-    fecha_comentario = models.DateField(default=timezone.now)
+    fecha_comentario = models.DateTimeField(default=timezone.now)
     post=models.ForeignKey(Post, related_name="comentarios", on_delete=models.CASCADE)
     comentario_padre = models.ForeignKey("self", null=True, blank=True, related_name="respuestas", on_delete=models.CASCADE)
 

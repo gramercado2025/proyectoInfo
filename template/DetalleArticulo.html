@@ -388,39 +388,61 @@
 
 
     <div class="comments-panel">
-        <div class="comments-panel__header">
-            <h4 class="comments-panel__title">
-                <i data-lucide="message-square" style="margin-right:0.5rem;"></i>
-                Comentarios
-            </h4>
-            <button class="comments-panel__close-button" aria-label="Cerrar panel">
-                <i data-lucide="x"></i>
+    <div class="comments-panel__header">
+        <h4 class="comments-panel__title">
+            <i data-lucide="message-square" style="margin-right:0.5rem;"></i>
+            Comentarios ({{ comentarios.count }})  </h4>
+        <button class="comments-panel__close-button" aria-label="Cerrar panel">
+            <i data-lucide="x"></i>
+        </button>
+    </div>
+
+    {% if user.is_authenticated %}
+        
+        <form method="post" action="{% url 'detalle_articulo' pk=post.pk %}" class="comments-panel__form">
+            {% csrf_token %} {{ form_comentario.contenido_comentario }} 
+            
+            {{ form_comentario.contenido_comentario.errors }}
+            {{ form_comentario.non_field_errors }} 
+            
+            <button type="submit" class="comments-panel__login-button">
+                Enviar Comentario
             </button>
-        </div>
-
-
+        </form>
+    
+    {% else %}
         <p class="comments-panel__info">
             Inicia sesión para dejar un comentario. Recuerda revisar nuestras
             <a href="{% url 'pautas' %}">pautas de la comunidad</a>.
         </p>
 
-        <textarea class="comments-panel__textarea" placeholder="Escribe tu comentario..."></textarea>
-
-        <button class="comments-panel__login-button">
+        <a href="{% url 'blog_auth:login' %}?next={{ request.path }}" class="comments-panel__login-button">
             Inicia sesión para comentar
-        </button>
+        </a>
+    
+    {% endif %}
 
-        <div class="comments-panel__comment-list">
-            <select class="comments-panel__sort-select">
-                <option>Ordenar por: Más nuevos</option>
-                <option>Ordenar por: Más votados</option>
-            </select>
 
+    <div class="comments-panel__comment-list">
+        <select class="comments-panel__sort-select">
+            <option>Ordenar por: Más nuevos</option>
+            <option>Ordenar por: Más votados</option>
+        </select>
+        
+        {% for comentario in comentarios %}
+            <div class="comments-panel__comment-item">
+                <p>
+                    <strong>{{ comentario.autor_comentario.username }}</strong> 
+                    <small class="text-muted">({{ comentario.fecha_comentario|date:"d M Y H:i" }})</small>
+                </p>
+                <p>{{ comentario.contenido_comentario }}</p>
+            </div>
+        {% empty %}
             <p class="comments-panel__no-comments">Sé el primero en comentar este artículo.</p>
+        {% endfor %}
 
-        </div>
     </div>
-
+</div>
 
     <script>
         // Inicializa íconos de Lucide

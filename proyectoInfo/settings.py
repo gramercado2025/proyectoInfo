@@ -34,7 +34,7 @@ SECRET_KEY = 'django-insecure-%_=ld(2z90fz$-*7=&^dcma6v$6=5*ru_e0#@3*u93tbdj#6%m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['gmercado.pythonanywhere.com']
+ALLOWED_HOSTS = ['gmercado.pythonanywhere.com',"127.0.0.1"]
 
 # Application definition
 
@@ -109,7 +109,7 @@ WSGI_APPLICATION = 'proyectoInfo.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(os.path.dirname(BASE_DIR), 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 

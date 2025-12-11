@@ -24,13 +24,14 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('blog_auth.urls')),       # Agrego las urls del url de  blog_auth
     path('', views.home, name='home'),
     path('pautas/', views.pautas, name='pautas'),
-    path('articulo/<int:pk>/', views.detalle_articulo, name='detalle_articulo')
-    
+    path('articulo/<int:pk>/', views.detalle_articulo, name='detalle_articulo'),
+    path('accounts/', include('django.contrib.auth.urls')),   
 ]
 
 if settings.DEBUG:
