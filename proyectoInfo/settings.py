@@ -34,7 +34,7 @@ SECRET_KEY = 'django-insecure-%_=ld(2z90fz$-*7=&^dcma6v$6=5*ru_e0#@3*u93tbdj#6%m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['gmercado.pythonanywhere.com']
 
 # Application definition
 
