@@ -32,7 +32,7 @@ def login_usuario(request):
                 auth_login(request, user) # 🚨 Usar el alias
                 messages.success(request, f"Bienvenido {user.username}")
                 # Si hay un parámetro 'next', redirige allí; si no, al 'index'
-                next_url = request.POST.get('next') or request.GET.get('next') or 'index'
+                next_url = request.POST.get('next') or request.GET.get('next') or 'home'
                 return redirect(next_url) 
             
         # Si el formulario NO ES VÁLIDO o user es None, el código continúa
