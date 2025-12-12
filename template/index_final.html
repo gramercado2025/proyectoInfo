@@ -85,9 +85,13 @@
                         {{post_destacado.categoria_post}}
                     </span>
                 </div>
-                <h3 class="featured__heading">
-                    🎧 {{post_destacado.titulo}}
-                </h3>
+                
+                <a href="{% url 'detalle_articulo' pk=post_destacado.id_post %}"> 
+                    <h3 class="featured__heading">
+                        🎧 {{post_destacado.titulo}}
+                    </h3>
+                </a>
+
                 <p>
                     {{post_destacado.resumen}}
                 </p>
@@ -145,10 +149,9 @@
                         {% endif %}
                         </div>
 
-
                     <!-- Contenido del Artículo -->
                     <div class="post-card__content">
-                        <span class="post-card__category">Lo nuevo de </span>
+                        <span class="post-card__category">{{post.categoria_post}}</span>
                         <a href="{% url 'detalle_articulo' post.id_post %}">
                             <h3 class="post-card__heading">
                                 {{post.titulo}}
