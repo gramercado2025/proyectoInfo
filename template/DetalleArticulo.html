@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Imagine Dragons: De Utah al Olimpo del Pop-Rock Electrónico | Blog de Triskel Radio</title>
+    <title>{{post.titulo}}| Blog de Triskel Radio</title>
 
     <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -86,7 +86,7 @@
 
                     {% if post.imagen_post%}
                         <img src="{{post.imagen_post.url}}" alt="Imagen {{post.titulo}}"
-                            class="post-card__image"
+                            class="post-detail__image"
                             onerror="this.onerror=null;this.src='https://placehold.co/300x200/4CAF50/white?text=SinImagen';">
                         {% endif %}
                         
