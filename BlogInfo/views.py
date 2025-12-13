@@ -4,6 +4,7 @@ from .models import Post
 from django.db.models import Count
 from .forms import FormularioComentario
 from .models import Post, Comentario # Necesitas Post y Comentario
+from .models import Categoria
 from django.shortcuts import render, get_object_or_404, redirect
 
 # Create your views here.
@@ -46,5 +47,27 @@ def detalle_articulo(request, pk):
         "form_comentario": form,           
     }
     return render(request, 'DetalleArticulo.html', context)
+
+def lista_categorias_general(request):
+    
+    categorias_con_conteo = Categoria.objects.annotate(
+        num_posts=Count('post') 
+    ).order_by('nombre')
+    
+    context = {
+        "categorias_list": categorias_con_conteo 
+    }
+    
+    return render(request, 'listado_categorias.html', context)
+
+def posts_por_categoria(request, pk):
+    
+    categoria = get_object_or_404(Categoria, pk=pk)
+    posts = Post.objects.filter(categoria_post=categoria).order_by('-fecha_creacion')
+    context = {
+        "categoria": categoria, 
+        "posts": posts,         
+    }
+    return render(request, 'categorias.html', context)
 
 

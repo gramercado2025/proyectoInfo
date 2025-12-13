@@ -133,7 +133,7 @@
         }
 
         /* ==================================== */
-        /* 3. Post (Artículo Principal) - Adaptación de tu Featured */
+        /* 3. Post (Artículo Principal)  */
         /* ==================================== */
 
         .post-detail__article {
@@ -282,8 +282,7 @@
                 /* Ocupa la segunda columna */
             }
         }
-
-        
+       
         /* ==================================== */
         /* 6. SIDEBAR (ASIDE) -  */
         /* ==================================== */
@@ -447,7 +446,7 @@
         }
 
         /* ==================================== */
-        /* 8. PANEL LATERAL DE COMENTARIOS (REUTILIZADO) */
+        /* 8. PANEL LATERAL DE COMENTARIOS  */
         /* ==================================== */
         .comments-panel {
             position: fixed;

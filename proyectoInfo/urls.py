@@ -30,8 +30,12 @@ urlpatterns = [
     path('auth/', include('blog_auth.urls')),       # Agrego las urls del url de  blog_auth
     path('', views.home, name='home'),
     path('pautas/', views.pautas, name='pautas'),
+    
+    path('categorias/', views.lista_categorias_general, name='lista_categorias_general'),
+    path('categoria/<int:pk>/', views.posts_por_categoria, name='posts_por_categoria'),  
     path('articulo/<int:pk>/', views.detalle_articulo, name='detalle_articulo'),
-    path('accounts/', include('django.contrib.auth.urls')),   
+    path('accounts/', include('django.contrib.auth.urls')), 
+
 ]
 
 if settings.DEBUG:
