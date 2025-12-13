@@ -1,4 +1,6 @@
 {% load static %}
+{% load humanize %}
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -59,187 +61,50 @@
             <section class="article-section">
 
                 <article class="post-detail__article">
-
-                    <!-- <audio autoplay controls loop>
-                        
-                        <source src="{% static 'audio/Imagine Dragons - Believer.mp3' %}" type="audio/mpeg">
-                        
-                    </audio> -->
-
                     
-                    <h1 class="post-detail__title">Imagine Dragons: De Utah al Olimpo del Pop-Rock Electrónico</h1>
-                    <span class="post-detail__category">Categoría: Pop Rock</span>
+                    <h1 class="post-detail__title">{{ post.titulo }}</h1>
+                    <span class="post-detail__category">Categoría: {{ post.categoria_post }}</span>
 
                     <div class="post-detail__meta">
                         <span class="post-detail__author-meta">
                             <i data-lucide="user" class="icon"></i>
-                            nina
+                            {{ post.autor_post }}
                         </span>
                         <span class="post-detail__date-meta">
                             <i data-lucide="calendar" class="icon"></i>
-                            29 Nov 2025
+                            {{ post.fecha_creacion|date:"d/m/Y" }}
                         </span>
                         <span class="post-detail__read-time-meta">
                             <i data-lucide="clock" class="icon"></i>
-                            8 min
+                            {{ post.fecha_creacion|naturaltime }}
                         </span>
                         <a href="#" data-action="open-comments" style="color:var(--primary-color);">
                             <i data-lucide="message-circle" class="icon"></i>
-                            Abrir Comentarios (0)
+                            {{post.total_comentarios}} Comentarios
                         </a>
                     </div>
 
-                    <img src="imagenes/Imagine Dragons/images dragon.jpeg"
-                        alt="Imagine Dragons, banda de rock alternativo" class="post-detail__image"
-                        onerror="this.onerror=null;this.src='https://placehold.co/800x400/E53935/white?text=Imagine+Dragons';">
-
+                    {% if post.imagen_post%}
+                        <img src="{{post.imagen_post.url}}" alt="Imagen {{post.titulo}}"
+                            class="post-card__image"
+                            onerror="this.onerror=null;this.src='https://placehold.co/300x200/4CAF50/white?text=SinImagen';">
+                        {% endif %}
+                        
                     <p class="post-detail__lead">
-                        Conoce los inicios de la banda que fusionó el rock épico con los ritmos electrónicos. Desde su
-                        formación hasta la cúspide de las listas, repasamos su trayectoria y destacamos himnos
-                        ineludibles como "Radioactive", "Believer" y "Thunder".
+                        {{ post.resumen }}
                     </p>
 
                     <div class="post-detail__content">
 
-                        <p>La historia de <strong>Imagine Dragons</strong> es un testimonio de perseverancia, evolución
-                            musical y la
-                            capacidad de transformar experiencias personales en himnos universales. Nacida en 2008, la
-                            banda se gestó inicialmente en Provo, Utah, para luego asentarse en Las Vegas, el lugar que
-                            se convertiría en su trampolín hacia el éxito global.</p>
-
-                        <h3>Los Primeros Acordes en Utah</h3>
-                        <p>Los cimientos de Imagine Dragons fueron puestos por su carismático vocalista, <strong>Dan
-                                Reynolds</strong>, mientras estudiaba en la Universidad Brigham Young (BYU) en Provo.
-                            Allí conoció
-                            al baterista <strong>Andrew Tolman</strong> y, más tarde, al guitarrista <strong>Wayne
-                                Sermon</strong>, quien se había
-                            graduado de la prestigiosa Berklee College of Music. La formación se consolidó con el
-                            bajista
-                            <strong>Ben McKee</strong> y, finalmente, con el actual baterista <strong>Daniel
-                                Platzman</strong>, completando el
-                            cuarteto que conocemos hoy. El nombre de la banda proviene de un anagrama que solo los
-                            miembros conocen, añadiendo un toque de misterio a sus orígenes.
-                        </p>
-
-                        <h3>La Conquista de Las Vegas</h3>
-                        <p>Aunque su inicio fue en Utah, fue en Las Vegas donde la banda comenzó a ganar tracción real.
-                            Tocar incansablemente en casinos y pequeños locales les brindó una valiosa experiencia en
-                            vivo y les permitió desarrollar ese sonido potente y teatral que los caracteriza. Un punto
-                            de
-                            inflexión temprano fue su actuación en el festival <em>Vegas Music Summit</em> de 2010, que
-                            atrajo la atención del productor <strong>Alex da Kid</strong>. Este encuentro fue crucial,
-                            llevándolos a
-                            firmar con su sello, <em>KIDinaKORNER</em>, bajo Interscope Records, en 2011.</p>
-
-                        <h3>El Despegue Global: <em>Night Visions</em> y la Explosión de "Radioactive"</h3>
-                        <p>El verdadero éxito masivo llegó con el lanzamiento de su álbum de estudio debut,
-                            <strong>Night
-                                Visions</strong>, en 2012. Este disco se convirtió rápidamente en un fenómeno,
-                            cimentando el
-                            distintivo sonido de la banda: una épica mezcla de rock alternativo con elementos de pop,
-                            electrónica y hasta <em>dubstep</em> en sus primeras etapas.
-                        </p>
-                        <p>El sencillo <strong> "It's Time"</strong> fue el primero en captar la atención, pero fue
-                            <strong>"Radioactive"</strong> el que los catapultó al estrellato. Con su ritmo
-                            *post-apocalíptico* y su
-                            coro explosivo, no solo dominó las listas de rock, sino que también cruzó al <strong>Top
-                                40</strong> del
-                            pop, manteniéndose en el *Billboard Hot 100* por un récord de 87 semanas y ganando el Premio
-                            Grammy a la Mejor Interpretación de Rock.
-                        </p>
-
-                        <iframe width="560" height="315"
-                            src="https://www.youtube.com/embed/ANBPhnP0o20?si=ycj2k9THnybbN8ZS"
-                            title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-                        <h3>El Nuevo Amanecer con <em>LOOM</em> (2024)</h3>
-                        <p>Tras el ambicioso álbum doble, <em>Mercury – Acts 1 & 2</em> (2021-2022), la banda se tomó un
-                            respiro para reagruparse y volver al estudio con una perspectiva fresca. El resultado es su
-                            sexto álbum de estudio, <strong>LOOM</strong>, lanzado en junio de 2024. Este disco ha sido
-                            descrito por
-                            el vocalista Dan Reynolds como la culminación de su viaje artístico y una obra que busca la
-                            <strong>ambigüedad temática</strong> entre un final y un nuevo comienzo.
-                        </p>
-                        <p><em>LOOM</em> representa un cambio notable en el proceso de trabajo de la banda, ya que
-                            optaron por colaborar exclusivamente con el dúo de productores suecos <strong>Mattman &
-                                Robin</strong>
-                            (quienes ya habían trabajado en <em>Evolve</em>). Esta colaboración resultó en un álbum más
-                            corto, conciso y, en palabras de Reynolds, <strong>"más lúdico y luminoso"</strong> que sus
-                            trabajos
-                            anteriores, aunque sin perder la profundidad lírica característica. Los sencillos
-                            <strong>"Eyes Closed"</strong> y <strong>"Nice to Meet You"</strong> ejemplifican esta
-                            dirección, combinando el rock de
-                            estadio con toques de pop alternativo y ritmos contagiosos, marcando el inicio de una nueva
-                            etapa.
-                        </p>
+                        {{ post.contenido|safe }}
 
                         <iframe style="border-radius:12px"
-                            src="https://open.spotify.com/embed/album/7EPrkhjTBrwAV8yAKCmY0Y?utm_source=generator&theme=0&autoplay=1"
+                            src=" {{ post.link_spotifylist}}"
                             width="100%" height="352" frameBorder="0" allowfullscreen=""
                             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                             loading="lazy">
                         </iframe>
 
-                        <h3>La Evolución Lírica: Himnos de Lucha y Superación</h3>
-                        <p>A lo largo de su carrera, Imagine Dragons ha mantenido un compromiso lírico con temas de
-                            <strong>lucha personal, salud mental, ansiedad, depresión y resiliencia</strong>. Canciones
-                            posteriores
-                            como <strong>"Believer"</strong> (de su álbum <em>Evolve</em>, 2017) se convirtieron en
-                            auténticos himnos
-                            de motivación, mientras que <strong>"Thunder"</strong> mostró su lado más *catchy* y
-                            optimista. Dan
-                            Reynolds ha utilizado consistentemente su música como una plataforma para abogar por la
-                            aceptación y la honestidad emocional, resonando profundamente con millones de oyentes.
-                        </p>
-
-
-                        <hr>
-
-                        <h3>Top 5 Canciones de Imagine Dragons</h3>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Canción</th>
-                                    <th>Álbum</th>
-                                    <th>Año</th>
-                                    <th>Porque Escuchar</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Radioactive</td>
-                                    <td><em>Night Visions</em></td>
-                                    <td>2012</td>
-                                    <td>El himno que definió su sonido y lanzó su carrera mundial.</td>
-                                </tr>
-                                <tr>
-                                    <td>Believer</td>
-                                    <td><em>Evolve</em></td>
-                                    <td>2017</td>
-                                    <td>Un potente manifiesto sobre encontrar fuerza en el dolor.</td>
-                                </tr>
-                                <tr>
-                                    <td>Thunder</td>
-                                    <td><em>Evolve</em></td>
-                                    <td>2017</td>
-                                    <td>Su lado más pop y rítmico, con un *hook* infeccioso.</td>
-                                </tr>
-                                <tr>
-                                    <td>Demons</td>
-                                    <td><em>Night Visions</em></td>
-                                    <td>2013</td>
-                                    <td>Una balada introspectiva sobre enfrentar la propia oscuridad.</td>
-                                </tr>
-                                <tr>
-                                    <td>It's Time</td>
-                                    <td><em>Night Visions</em></td>
-                                    <td>2012</td>
-                                    <td>El sencillo de apertura que mostró su potencial melódico.</td>
-                                </tr>
-                            </tbody>
-                        </table>
                     </div>
 
                     <button data-action="open-comments" class="comments-panel__login-button"
