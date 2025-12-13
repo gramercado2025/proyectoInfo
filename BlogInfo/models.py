@@ -55,17 +55,5 @@ class Comentario(models.Model):
         return f"(self.autor_comentario) - (self.contenido_comentario[:30])"
     
 
-    
-    
-    
-     
-
-
-
-
-
-
-
-
 
 

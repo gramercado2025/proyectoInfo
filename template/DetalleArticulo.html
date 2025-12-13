@@ -256,21 +256,32 @@
     <div class="comments-panel__header">
         <h4 class="comments-panel__title">
             <i data-lucide="message-square" style="margin-right:0.5rem;"></i>
-            Comentarios ({{ comentarios.count }})  </h4>
+            Comentarios ({{ comentarios.count }})
+        </h4>
         <button class="comments-panel__close-button" aria-label="Cerrar panel">
             <i data-lucide="x"></i>
         </button>
     </div>
 
+    {# --- FORMULARIO DE COMENTARIO --- #}
     {% if user.is_authenticated %}
         
         <form method="post" action="{% url 'detalle_articulo' pk=post.pk %}" class="comments-panel__form">
-            {% csrf_token %} {{ form_comentario.contenido_comentario }} 
+            {% csrf_token %} 
             
-            {{ form_comentario.contenido_comentario.errors }}
+            
+            {{ form_comentario.contenido_comentario }} 
+            
+            {% if form_comentario.contenido_comentario.errors %}
+                <p class="comments-panel__error-message">{{ form_comentario.contenido_comentario.errors }}</p>
+            {% endif %}
+            
             {{ form_comentario.non_field_errors }} 
             
-            <button type="submit" class="comments-panel__login-button">
+            <button type="submit" class="comments-panel__login-button"
+                        style="width: 100%; margin-top: 2rem;">
+                        <i data-lucide="message-square"
+                            style="width:1.2rem; height:1.2rem; margin-right:0.5rem; color:white;"></i>
                 Enviar Comentario
             </button>
         </form>
@@ -287,66 +298,124 @@
     
     {% endif %}
 
+    {# --- LISTA DE COMENTARIOS --- #}
+    <div class="comments-panel__comment-list" id="contenedor-comentarios">
+    {# El ID es lo que JavaScript necesita para saber dónde actualizar el contenido #}
+    {% include 'partials/lista_comentarios_fragmento.html' %} 
 
-    <div class="comments-panel__comment-list">
-        <select class="comments-panel__sort-select">
-            <option>Ordenar por: Más nuevos</option>
-            <option>Ordenar por: Más votados</option>
-        </select>
         
-        {% for comentario in comentarios %}
-            <div class="comments-panel__comment-item">
-                <p>
-                    <strong>{{ comentario.autor_comentario.username }}</strong> 
-                    <small class="text-muted">({{ comentario.fecha_comentario|date:"d M Y H:i" }})</small>
-                </p>
-                <p>{{ comentario.contenido_comentario }}</p>
-            </div>
-        {% empty %}
-            <p class="comments-panel__no-comments">Sé el primero en comentar este artículo.</p>
-        {% endfor %}
-
+        
+        
     </div>
 </div>
 
-    <script>
-        // Inicializa íconos de Lucide
-        lucide.createIcons();
+   <script>
+    // Inicializa íconos de Lucide
+    lucide.createIcons();
 
-        // --- Lógica del Panel Lateral de Comentarios ---
-        const commentsPanel = document.querySelector('.comments-panel');
-        // Usamos el nuevo selector 'data-action' para los botones de comentario
-        const openButtons = document.querySelectorAll('[data-action="open-comments"]');
-        const closeButton = document.querySelector('.comments-panel__close-button');
+    // --- Lógica del Panel Lateral de Comentarios ---
+    const commentsPanel = document.querySelector('.comments-panel');
+    const openButtons = document.querySelectorAll('[data-action="open-comments"]');
+    const closeButton = document.querySelector('.comments-panel__close-button');
 
 
-        function openCommentsPanel(event) {
-            if (event) {
-                event.preventDefault(); // Previene la navegación si fuera un enlace
-            }
-            commentsPanel.classList.add('comments-panel--open');
+    function openCommentsPanel(event) {
+        if (event) {
+            event.preventDefault(); // Previene la navegación si fuera un enlace
+        }
+        commentsPanel.classList.add('comments-panel--open');
+    }
+
+    function closeCommentsPanel() {
+        commentsPanel.classList.remove('comments-panel--open');
+    }
+
+    // Asignar listener a todos los botones de comentarios para abrir el panel
+    openButtons.forEach(button => {
+        button.addEventListener('click', openCommentsPanel);
+    });
+
+    // Asignar listener al botón de cierre
+    closeButton.addEventListener('click', closeCommentsPanel);
+
+    // Opcional: Cerrar al presionar la tecla ESC
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && commentsPanel.classList.contains('comments-panel--open')) {
+            closeCommentsPanel();
+        }
+    });
+
+    // --- LÓGICA AJAX PARA ORDENAMIENTO Y FILTRADO ---
+    document.addEventListener('DOMContentLoaded', function() {
+        // --- Variables de AJAX ---
+        const contenedor = document.getElementById('contenedor-comentarios');
+        const postPk = '{{ post.pk }}';
+
+        // 1. Función principal para cargar los comentarios vía AJAX (Actualiza el contenido)
+        function cargarComentarios(params = {}) {
+            // Construye la URL para la vista AJAX
+            const url = `/articulo/${postPk}/comentarios-ajax/?${new URLSearchParams(params).toString()}`;
+            
+            // Indicador de carga temporal
+            contenedor.innerHTML = '<p class="text-center p-3">Cargando comentarios...</p>';
+            
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Error HTTP: ${response.status}`);
+                    }
+                    return response.text(); 
+                })
+                .then(html => {
+                    // Reemplaza el contenido del contenedor con el nuevo HTML
+                    contenedor.innerHTML = html; 
+                    // CRUCIAL: Vuelve a adjuntar los eventos a los botones nuevos
+                    addEventListeners();
+                })
+                .catch(error => {
+                    console.error('Error al cargar comentarios:', error);
+                    alert('No se pudieron cargar los comentarios.');
+                });
         }
 
-        function closeCommentsPanel() {
-            commentsPanel.classList.remove('comments-panel--open');
+        // 2. Función para adjuntar eventos a los botones (Orden, Limpiar, Filtrar)
+        function addEventListeners() {
+            
+            // A. Event listener para los botones de ORDENAR y LIMPIAR FILTRO (.sort-btn)
+            document.querySelectorAll('.sort-btn').forEach(button => {
+                button.onclick = function() {
+                    let params = {};
+                    // Lógica para determinar los parámetros
+                    if (this.dataset.order) {
+                        // Ordenamiento (mas_nuevo o mas_antiguo)
+                        params = { orden: this.dataset.order };
+                    } 
+                    // Nota: Si es el botón "Limpiar Filtro", params queda vacío, lo que usa el default del servidor.
+                    
+                    cargarComentarios(params);
+                };
+            });
+            
+            // B. Event listener para los botones de FILTRAR por Usuario (.filter-btn)
+            document.querySelectorAll('.filter-btn').forEach(button => {
+                button.onclick = function() {
+                    const autorId = this.dataset.filterUser;
+                    
+                    // Mantiene el orden actual al aplicar el filtro de usuario
+                    // Se busca el botón activo (el que tiene la clase 'is-active')
+                    const ordenActual = document.querySelector('.sort-btn.is-active')?.dataset.order || 'mas_nuevo';
+                    
+                    // Llamada a AJAX con el orden y el filtro de usuario
+                    cargarComentarios({ orden: ordenActual, autor_id: autorId });
+                };
+            });
         }
+        
+        // 3. Ejecuta la función de listeners al cargar la página por primera vez
+        addEventListeners();
+    });
 
-        // 1. Asignar listener a todos los botones de comentarios para abrir el panel
-        openButtons.forEach(button => {
-            button.addEventListener('click', openCommentsPanel);
-        });
-
-        // 2. Asignar listener al botón de cierre
-        closeButton.addEventListener('click', closeCommentsPanel);
-
-        // 3. Opcional: Cerrar al presionar la tecla ESC
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape' && commentsPanel.classList.contains('comments-panel--open')) {
-                closeCommentsPanel();
-            }
-        });
-
-    </script>
+</script>
 </body>
 
 </html>

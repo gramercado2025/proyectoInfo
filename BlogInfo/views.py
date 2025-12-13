@@ -1,11 +1,12 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404,redirect #luego de hacer comentario para que no de error
 from django.http import HttpResponse
 from .models import Post
 from django.db.models import Count
 from .forms import FormularioComentario
-from .models import Post, Comentario # Necesitas Post y Comentario
 from .models import Categoria
-from django.shortcuts import render, get_object_or_404, redirect
+from django.template.loader import render_to_string #para mostrar comentarios filtrados sin recargar la pagina
+from django.contrib.auth.models import User
+from django.utils import timezone
 
 # Create your views here.
 def home(request):
@@ -25,11 +26,26 @@ def pautas(request):
 
 def detalle_articulo(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    comentarios = post.comentarios.all().order_by('-fecha_comentario') 
+    comentarios_qs = post.comentarios.all() 
+    orden = request.GET.get('orden', 'mas_nuevo')    
+    if orden == 'mas_nuevo':
+        comentarios_qs = comentarios_qs.order_by('-fecha_comentario') 
+    elif orden == 'mas_antiguo':
+        comentarios_qs = comentarios_qs.order_by('fecha_comentario') 
+
+    #filtrando por usuario
+    autor_id_filtro = request.GET.get('autor_id')
+    autor_filtrado = None
+    if autor_id_filtro:
+        try:
+            autor_filtrado = User.objects.get(id=autor_id_filtro)
+            comentarios_qs = comentarios_qs.filter(autor_comentario=autor_filtrado)
+        except User.DoesNotExist:
+            pass
     if request.method == 'POST':
         form = FormularioComentario(request.POST)
         
-        if not request.user.is_authenticated: #Verificar que el usuario esté logueado antes de procesar
+        if not request.user.is_authenticated:# Redirigir al login si no logeo
             return redirect('blog_auth:login') 
 
         if form.is_valid():
@@ -37,16 +53,19 @@ def detalle_articulo(request, pk):
             nuevo_comentario.post = post 
             nuevo_comentario.autor_comentario = request.user 
             nuevo_comentario.save()
-            return redirect('detalle_articulo', pk=post.pk) 
-            
+            return redirect('detalle_articulo', pk=post.pk)            
     else:
         form = FormularioComentario()
+        
     context = {
         "post": post,
-        "comentarios": comentarios,        
-        "form_comentario": form,           
+        "comentarios": comentarios_qs, 
+        "form_comentario": form,
+        "orden_actual": orden,           
+        "autor_filtrado": autor_filtrado 
     }
     return render(request, 'DetalleArticulo.html', context)
+
 
 def lista_categorias_general(request):
     
@@ -70,4 +89,36 @@ def posts_por_categoria(request, pk):
     }
     return render(request, 'categorias.html', context)
 
+def lista_comentarios_ajax(request, pk):
+    #logica igual a detalle_articulo sin el formulario y ni post
+    post = get_object_or_404(Post, pk=pk)
+    comentarios_qs = post.comentarios.all()
+    
+    #ordenado por fecha
+    orden = request.GET.get('orden', 'mas_nuevo') 
+    autor_id_filtro = request.GET.get('autor_id')
+    autor_filtrado = None
+    
+    if orden == 'mas_nuevo':
+        comentarios_qs = comentarios_qs.order_by('-fecha_comentario') 
+    elif orden == 'mas_antiguo':
+        comentarios_qs = comentarios_qs.order_by('fecha_comentario') 
 
+    if autor_id_filtro:
+        try:
+            autor_filtrado = User.objects.get(id=autor_id_filtro)
+            comentarios_qs = comentarios_qs.filter(autor_comentario=autor_filtrado)
+        except User.DoesNotExist:
+            pass
+    html_comentarios = render_to_string(
+        'partials/lista_comentarios_fragmento.html',
+        {
+            'comentarios': comentarios_qs,
+            'post': post,
+            'orden_actual': orden,
+            'autor_filtrado': autor_filtrado
+        },
+        request=request
+    )
+    
+    return HttpResponse(html_comentarios)

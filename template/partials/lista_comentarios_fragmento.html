@@ -1,0 +1,55 @@
+
+<div class="comments-panel__controls" id="comentarios-controles">
+    <span class="comments-panel__control-label">Ordenar:</span>
+    
+    {# Botón de Ordenamiento: Más Nuevos #}
+    <button data-order="mas_nuevo" 
+            data-post-pk="{{ post.pk }}" 
+            class="comments-panel__sort-link sort-btn {% if orden_actual == 'mas_nuevo' %}is-active{% endif %}">
+        Más nuevos
+    </button>
+    
+    {# Botón de Ordenamiento: Más Antiguos #}
+    <button data-order="mas_antiguo" 
+            data-post-pk="{{ post.pk }}" 
+            class="comments-panel__sort-link sort-btn {% if orden_actual == 'mas_antiguo' %}is-active{% endif %}">
+        Más antiguos
+    </button>
+
+    {# Indicador de FILTRO DE USUARIO ACTIVO #}
+    {% if autor_filtrado %}
+        <span class="comments-panel__filter-indicator">
+            Filtrando por: **@{{ autor_filtrado.username }}**
+        </span>
+        {# Botón para limpiar el filtro (llama a la función AJAX sin parámetros de filtro) #}
+        <button data-action="limpiar" 
+                data-post-pk="{{ post.pk }}"
+                class="comments-panel__clear-filter-link sort-btn">
+            Limpiar Filtro
+        </button>
+    {% endif %}
+</div>
+
+{# --- BUCLE DE COMENTARIOS --- #}
+<div id="comentarios-lista">
+    {% for comentario in comentarios %}
+        <div class="comments-panel__comment-item">
+            <p class="comments-panel__comment-meta">
+                {# Botón/Enlace para FILTRAR POR ESTE USUARIO (Envía el autor_id) #}
+                <button data-filter-user="{{ comentario.autor_comentario.id }}"
+                        data-post-pk="{{ post.pk }}"
+                        class="comments-panel__username-link filter-btn" 
+                        title="Mostrar solo comentarios de este usuario">
+                    @<strong>{{ comentario.autor_comentario.username }}</strong> 
+                </button>
+                
+                <small class="text-muted comments-panel__timestamp">
+                    ({{ comentario.fecha_comentario|date:"d M Y H:i" }})
+                </small>
+            </p>
+            <p class="comments-panel__comment-content">{{ comentario.contenido_comentario }}</p>
+        </div>
+    {% empty %}
+        <p class="comments-panel__no-comments">Sé el primero en comentar este artículo.</p>
+    {% endfor %}
+</div>
