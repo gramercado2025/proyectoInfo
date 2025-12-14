@@ -137,7 +137,7 @@
             <!-- COLUMNA DE ARTÍCULOS (2/3 del ancho en escritorio) -->
             <section class="article-section">
 
-                {% for post in posts %}
+                {% for post in page_obj %}
                  <!-- Artículo con imagen 1-->
                  <article class="post-card">
 
@@ -187,20 +187,41 @@
                 {% endfor %}
  
 
-                <!-- Paginación -->
-                <div class="pagination">
-                    <a href="#" class="pagination__link">
-                        <i data-lucide="chevron-left"
-                            style="width:1rem; height:1rem; margin:0; vertical-align:middle;"></i>
-                    </a>
-                    <a href="#" class="pagination__link active">1</a>
-                    <a href="#" class="pagination__link">2</a>
-                    <a href="#" class="pagination__link">3</a>
-                    <a href="#" class="pagination__link">
-                        <i data-lucide="chevron-right"
-                            style="width:1rem; height:1rem; margin:0; vertical-align:middle;"></i>
-                    </a>
-                </div>
+                 <!-- PAGINACION -->
+                 {% if page_obj.has_other_pages %}
+                 <div class="pagination">
+                     
+                     {% if page_obj.has_previous %}
+                         <a class="pagination-link" href="?page=1">&laquo;</a>
+                     {% else %}
+                         <span class="pagination-disabled">&laquo;</span>
+                     {% endif %}
+                 
+                     {% if page_obj.has_previous %}
+                         <a class="pagination-link" href="?page={{ page_obj.previous_page_number }}">&lsaquo;</a>
+                     {% else %}
+                         <span class="pagination-disabled">&lsaquo;</span>
+                     {% endif %}
+                 
+                     <span class="current-page">
+                         {{ page_obj.number }}
+                     </span>
+                     
+                     {% if page_obj.has_next %}
+                         <a class="pagination-link" href="?page={{ page_obj.next_page_number }}">&rsaquo;</a>
+                     {% else %}
+                         <span class="pagination-disabled">&rsaquo;</span>
+                     {% endif %}
+                 
+                     {% if page_obj.has_next %}
+                         <a class="pagination-link" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a>
+                     {% else %}
+                         <span class="pagination-disabled">&raquo;</span>
+                     {% endif %}
+                     
+                 </div>
+                 {% endif %}
+
 
             </section>
 
@@ -281,7 +302,7 @@
 
         </div>
     </main>
-
+   
     <!-- 4. FOOTER -->
     <footer class="footer">
         <div class="container">
@@ -349,7 +370,7 @@
     </footer>
 
 
-    <!-- PANEL LATERAL DE COMENTARIOS (ACTUALIZADO) -->
+     <!-- PANEL LATERAL DE COMENTARIOS -->
     <div class="comments-panel">
         <div class="comments-panel__header">
             <h4 class="comments-panel__title">

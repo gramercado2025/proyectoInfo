@@ -257,7 +257,6 @@
         }
     }
 
-
     /* ==================================== */
     /* 4. CONTENIDO PRINCIPAL (GRID) */
     /* ==================================== */
@@ -362,7 +361,6 @@
         gap: 1rem;
     }
 
-    /* Nuevo estilo para el botón de comentarios */
     .post-card__comment-button {
         background: none;
         border: none;
@@ -400,7 +398,7 @@
     }
 
     /* Paginación */
-    .pagination {
+    /* .pagination {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -425,8 +423,70 @@
         background-color: var(--primary-color);
         color: white;
         border-color: var(--primary-color);
+    } */
+
+    /* style.css - Estilos de Paginación para Blog Radio Triskel */
+
+    /* style.css - Estilos de Paginación (Iconos y Rojo/Gris) */
+
+    /* Contenedor principal de la paginación */
+    .pagination {
+        display: flex; 
+        justify-content: center; 
+        align-items: center;
+        margin: 40px 0; 
+        padding: 10px;
     }
 
+    /* Estilo general para todos los elementos (enlaces, deshabilitados, actual) */
+    .pagination-link,
+    .pagination-disabled,
+    .current-page {
+    /* Hacemos los botones compactos y cuadrados */
+        display: flex; 
+        justify-content: center;
+        align-items: center;
+        width: 38px; /* Ancho fijo para el cuadrado */
+        height: 38px; /* Alto fijo para el cuadrado */
+        margin: 0 4px; /* Espacio entre botones */
+        border-radius: 4px;
+        font-size: 1.1rem; /* Iconos más grandes */
+        font-weight: 600; /* Letra fuerte para los iconos */
+        text-decoration: none;
+        transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    }
+
+    /* Enlaces activos  */
+    /* Fondo Blanco, Borde y Icono Rojo */
+    .pagination-link {
+        background-color: #ffffff; 
+        color: #dc3545; /* Rojo de Radio Triskel */
+        border: 1px solid #dc3545; 
+    }
+
+    .pagination-link:hover {
+        /* Invertir el color al pasar el mouse (Fondo Rojo) */
+        background-color: #dc3545; 
+        color: #ffffff; 
+        border-color: #dc3545;
+    }
+
+    /* Página actual (El número de página actual) */
+    /* Fondo Rojo, Texto Blanco */
+    .current-page {
+        color: #ffffff; 
+        background-color: #dc3545; /* Fondo Rojo (Activo) */
+        border: 1px solid #dc3545;
+    }
+
+    /* Enlaces deshabilitados (Cuando no hay página anterior o siguiente) */
+    /* Fondo y Borde Gris claro, Icono Gris */
+    .pagination-disabled {
+        color: #6c757d; /* Gris para indicar inactividad */
+        background-color: #e9ecef; /* Fondo gris claro */
+        cursor: not-allowed;
+        border: 1px solid #dee2e6;
+    }
     /* ==================================== */
     /* 6. SIDEBAR (ASIDE) */
     /* ==================================== */
