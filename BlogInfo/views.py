@@ -1,23 +1,57 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from .models import Post
+from django.core.paginator import Paginator # Para la paginacion
 from django.db.models import Count
 from .forms import FormularioComentario
-from .models import Post, Comentario # Necesitas Post y Comentario
+from .models import Post, Comentario # Necesito Post y Comentario
 from .models import Categoria
 from django.shortcuts import render, get_object_or_404, redirect
 
 # Create your views here.
+
+# Antigua vista de la pagina principal sin paginación, la comento por las dudas
+#def home(request):
+    
+#    post_destacado = Post.objects.filter(es_destacado=True).annotate(total_comentarios=Count('comentarios')).first()
+#    posts= Post.objects.annotate(total_comentarios=Count('comentarios')).order_by("fecha_creacion")
+#    if post_destacado:
+#        posts = posts.exclude(id_post=post_destacado.id_post)
+#    context = {"posts": posts, "post_destacado":post_destacado}
+#
+#    return render(request,'index_final.html',context)
+
+# views.py
+
 def home(request):
     
+    # 1. Obtener y preparar el Post Destacado
     post_destacado = Post.objects.filter(es_destacado=True).annotate(total_comentarios=Count('comentarios')).first()
-    posts= Post.objects.annotate(total_comentarios=Count('comentarios')).order_by("fecha_creacion")
+    
+    # 2. Obtener la lista BASE de Posts a paginar (ordenada)
+    posts_list = Post.objects.annotate(total_comentarios=Count('comentarios')).order_by("fecha_creacion")
+    
+    # 3. Excluir el post destacado
     if post_destacado:
-        posts = posts.exclude(id_post=post_destacado.id_post)
-    context = {"posts": posts, "post_destacado":post_destacado}
+        posts_list = posts_list.exclude(id_post=post_destacado.id_post)
 
-    return render(request,'index_final.html',context)
+    # 4. Configurar el Paginator (4 posts por página)
+    posts_por_pagina = 4 
+    paginator = Paginator(posts_list, posts_por_pagina)
+    
+    # 5. Obtener el número de página de la URL (?page=X)
+    page_number = request.GET.get('page')
+    
+    # 6. Obtener el objeto Page para la página solicitada
+    page_obj = paginator.get_page(page_number)
+    
+    # 7. Renderizar el template
+    context = {
+        "page_obj": page_obj, 
+        "post_destacado": post_destacado
+    }
 
+    return render(request, 'index_final.html', context)
 
 def pautas(request):
     #return HttpResponse("Bienvenido a la página prncipal")
