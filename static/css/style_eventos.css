@@ -1,0 +1,455 @@
+/* ==================================== */
+/* 1. VARIABLES Y ESTILOS BASE */
+/* ==================================== */
+:root {
+    --primary-color: #E53935;
+    /* Rojo */
+    --secondary-color: #e62e1b;
+    /* Teal */
+    --bg-color: #f8f8f8;
+    /* Fondo general */
+    --card-border: #eee;
+    --text-dark: #333;
+    --text-light: #666;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+    --max-width: 1280px;
+    --padding-x: 1rem;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-dark);
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+.container {
+    max-width: var(--max-width);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--padding-x);
+    padding-right: var(--padding-x);
+}
+
+a {
+    text-decoration: none;
+    color: var(--text-dark);
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--primary-color);
+}
+
+/* Estilos de Iconos Lucide */
+.icon {
+    width: 1rem;
+    height: 1rem;
+    color: var(--primary-color);
+    margin-right: 0.25rem;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Estilo para el logo con ícono  */
+.header__logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.1;
+}
+
+.logo-image {
+    width: 5rem;
+    height: 5rem;
+    margin-bottom: 0.25rem;
+    object-fit: contain;
+}
+
+
+/* ==================================== */
+/* 2. HEADER */
+/* ==================================== */
+.header {
+    box-shadow: var(--shadow-sm);
+    background-color: white;
+    border-bottom: 1px solid var(--card-border);
+}
+
+.header__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.header__nav {
+    display: none;
+    /* Oculto por defecto en móvil */
+    gap: 2rem;
+    font-size: 1.125rem;
+    color: var(--text-light);
+}
+
+.header__search-button {
+    color: var(--text-light);
+    padding: 0.5rem;
+    border-radius: 9999px;
+    display: none;
+}
+
+.header__menu-button {
+    display: block;
+    /* Visible en móvil */
+    color: var(--text-light);
+    padding: 0.5rem;
+    border-radius: 9999px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* Media Query: Escritorio (Desktop) */
+@media (min-width: 768px) {
+    .header__nav {
+        display: flex;
+    }
+
+    .header__search-button {
+        display: block;
+    }
+
+    .header__menu-button {
+        display: none;
+    }
+}
+
+/* ==================================== */
+/* 3. DETALLE DE EVENTO (Artículo modificado) */
+/* ==================================== */
+
+/* Los estilos de post-detail__article ahora se aplican a los bloques de evento */
+.post-detail__article {
+    background-color: white;
+    padding: 2rem 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow-md);
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.post-detail__title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+}
+
+.post-detail__category {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.post-detail__meta {
+    font-size: 0.875rem;
+    color: var(--text-light);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--card-border);
+}
+
+.post-detail__meta span {
+    display: flex;
+    align-items: center;
+}
+
+.post-detail__image {
+    width: 100%;
+    height: 900px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+}
+.post-detail__content h3 {
+    font-size: 1.5rem;
+    color: var(--text-dark);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    border-left: 4px solid var(--secondary-color);
+    padding-left: 1rem;
+}
+
+.post-detail__content p {
+    font-size: 1rem;
+    color: var(--text-dark);
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+}
+
+/* Copete (introducción/resumen) */
+.post-detail__lead {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--text-light);
+    border-left: 4px solid var(--primary-color);
+    padding-left: 1rem;
+    margin-bottom: 2rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+/* Media Query: Escritorio */
+@media (min-width: 768px) {
+    .post-detail__title {
+        font-size: 2.5rem;
+    }
+}
+
+
+/* ==================================== */
+/* 4. CONTENIDO PRINCIPAL (GRID)  */
+/* ==================================== */
+.main-content {
+    padding-top: 1rem;
+    padding-bottom: 3rem;
+}
+
+.main-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    /* Una columna por defecto (móvil) */
+    gap: 2rem;
+}
+
+/* Media Query: Escritorio (Desktop) */
+@media (min-width: 1024px) {
+    .main-grid {
+        /* Define 2 columnas: 2/3 y 1/3 */
+        grid-template-columns: 2fr 1fr;
+        gap: 2rem;
+    } /* Cierra .main-grid */
+
+    .article-section {
+        grid-column: span 1 / span 1;
+        /* Ocupa la primera columna */
+    } /* Cierra .article-section */
+
+    .sidebar {
+        grid-column: span 1 / span 1;
+        /* Ocupa la segunda columna */
+        margin-top: 0; 
+    } /* Cierra .sidebar */
+    
+} 
+
+/* ==================================== */
+/* 5. ESTILOS DE NAVEGACIÓN DE EVENTOS  */
+/* ==================================== */
+
+.event-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* Para que se ajuste en móvil */
+    gap: 10px;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    border-bottom: 1px solid var(--card-border);
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow-sm);
+}
+
+
+.event-nav__item {
+    padding: 8px 15px;
+    background-color: var(--primary-color);
+    color: white !important; 
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+}
+
+.event-nav__item:hover {
+    background-color: var(--secondary-color); /* Rojo un poco más oscuro */
+}
+
+
+/* ==================================== */
+/* 6. SIDEBAR (ASIDE) -  */
+/* ==================================== */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.sidebar__widget {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--card-border);
+    box-shadow: var(--shadow-sm);
+}
+
+.widget__title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    border-bottom: 1px solid var(--card-border);
+    padding-bottom: 0.75rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.widget__title .icon {
+    margin-right: 0.5rem;
+}
+
+/* Widget: About */
+.widget__text {
+    font-size: 0.875rem;
+    color: var(--text-light);
+}
+
+/* Widget: Lists (Populares, Categorías) */
+.widget__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.875rem;
+}
+
+.widget__list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px dotted #ccc;
+}
+
+.widget__list li:last-child {
+    border-bottom: none;
+}
+
+.widget__count {
+    font-size: 0.75rem;
+    background-color: var(--bg-color);
+    padding: 0.125rem 0.5rem;
+    border-radius: 9999px;
+    color: var(--primary-color);
+    /* Para categorías */
+}
+
+.widget__list li a {
+    color: var(--text-dark);
+}
+
+/* Widget: Tags */
+.widget__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.widget__tag {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    background-color: var(--bg-color);
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.widget__tag:hover {
+    background-color: #e0e0e0;
+}
+
+
+/* ==================================== */
+/* 7. FOOTER -  */
+/* ==================================== */
+.footer {
+    background-color: white;
+    border-top: 1px solid var(--card-border);
+}
+
+.footer__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding-top: 2.5rem;
+    padding-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .footer__grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.footer__logo-footer {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.footer__section-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+
+.footer__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--text-light);
+    line-height: 2;
+}
+
+.footer__social {
+    display: flex;
+    gap: 1rem;
+    color: var(--text-light);
+}
+
+.footer__social a {
+    padding: 0.25rem;
+    display: block;
+}
+
+.footer__copy {
+    border-top: 1px solid var(--card-border);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    text-align: center;
+}
+
+.footer__copy-text {
+    font-size: 0.75rem;
+    color: var(--text-light);
+}

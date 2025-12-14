@@ -1,5 +1,4 @@
 {% load static %}
-{% load humanize %}
 
 <!DOCTYPE html>
 <html lang="es">
@@ -7,11 +6,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{post.titulo}}| Blog de Triskel Radio</title>
+    <title>Eventos | Blog de Triskel Radio</title>
 
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <link rel="stylesheet" href="{% static 'css/style_articulo.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style_eventos.css' %}">
 
 </head>
 
@@ -30,8 +29,7 @@
             <nav class="header__nav">
                 <a href="{% url 'home' %}">Inicio</a>
                 <a href="{% url 'lista_categorias_general' %}">Categorías</a>
-                <a href="{% url  'eventos' %}">Eventos</a>
-                <a href="#">Contacto</a>
+                <a href="#">Eventos</a> <a href="#">Contacto</a>
                 <a href="{% url 'pautas' %}">Pautas de la Comunidad</a>
             </nav>
 
@@ -60,62 +58,97 @@
         <div class="main-grid">
             <section class="article-section">
 
-                <article class="post-detail__article">
-                    
-                    <h1 class="post-detail__title">{{ post.titulo }}</h1>
-                    <span class="post-detail__category">Categoría: {{ post.categoria_post }}</span>
+                <div class="event-nav">
+                    <a href="#evento1" class="event-nav__item">Evento 1</a>
+                    <a href="#evento2" class="event-nav__item">Evento 2</a>
+                    <a href="#evento3" class="event-nav__item">Evento 3</a>
+                    <a href="#evento4" class="event-nav__item">Evento 4</a>
+                </div>
+                <article class="post-detail__article" id="evento1">
+                    <h1 class="post-detail__title">¡La Navidad en Radio Triskel no es solo villancicos! 🎧</h1>
 
-                    <div class="post-detail__meta">
-                        <span class="post-detail__author-meta">
-                            <i data-lucide="user" class="icon"></i>
-                            {{ post.autor_post }}
-                        </span>
-                        <span class="post-detail__date-meta">
-                            <i data-lucide="calendar" class="icon"></i>
-                            {{ post.fecha_creacion|date:"d/m/Y" }}
-                        </span>
-                        <span class="post-detail__read-time-meta">
-                            <i data-lucide="clock" class="icon"></i>
-                            {{ post.fecha_creacion|naturaltime }}
-                        </span>
-                        <a href="#" data-action="open-comments" style="color:var(--primary-color);">
-                            <i data-lucide="message-circle" class="icon"></i>
-                            {{post.total_comentarios}} Comentarios
-                        </a>
-                    </div>
+                    <img src="{% static 'imagenes/navidad.jpeg' %}" alt="Navidad" class="post-detail__image"
+                        onerror="this.onerror=null;this.src='https://placehold.co/800x400/00BCD4/white?text=Evento+2';">
 
-                    {% if post.imagen_post%}
-                        <img src="{{post.imagen_post.url}}" alt="Imagen {{post.titulo}}"
-                            class="post-detail__image"
-                            onerror="this.onerror=null;this.src='https://placehold.co/300x200/4CAF50/white?text=SinImagen';">
-                        {% endif %}
-                        
                     <p class="post-detail__lead">
-                        {{ post.resumen }}
+                        ¡La Navidad en Radio Triskel no es solo villancicos! 🎧
                     </p>
 
                     <div class="post-detail__content">
-
-                        {{ post.contenido|safe }}
-
-                        <iframe style="border-radius:12px"
-                            src=" {{ post.link_spotifylist}}"
-                            width="100%" height="352" frameBorder="0" allowfullscreen=""
-                            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                            loading="lazy">
-                        </iframe>
-
+                        <p>Este sábado 20, llega nuestro Súper Especial Navideño con la mejor música 🎶 (castellano e
+                            internacional).
+                            ¡No seas un Grinch! 🎅 Mándanos tus audios con deseos navideños. ¡Armemos juntos el arbolito
+                            más musical!🎄</p>
                     </div>
-
-                    <button data-action="open-comments" class="comments-panel__login-button"
-                        style="width: auto; margin-top: 2rem;">
-                        <i data-lucide="message-square"
-                            style="width:1.2rem; height:1.2rem; margin-right:0.5rem; color:white;"></i>
-                        Ver/Escribir Comentarios
-                    </button>
-
                 </article>
 
+                <hr>
+
+                <article class="post-detail__article" id="evento2">
+                    <h1 class="post-detail__title">🎧 Año viejo, canciones nuevas... 2025-2026 🚀</h1>
+
+                    <img src="{% static 'imagenes/anio_nuevo.jpeg' %}" alt="Navidad" class="post-detail__image"
+                        onerror="this.onerror=null;this.src='https://placehold.co/800x400/00BCD4/white?text=Evento+2';">
+
+                    <p class="post-detail__lead">
+                        ¡Despedimos el 2025 a puro hit! 🎉
+                    </p>
+
+                    <div class="post-detail__content">
+                        <p>Hacemos un recorrido nostálgico por las canciones que te hicieron vibrar este año en Triskel.
+                            🎶 Y lo mejor: te mostramos un adelanto EXCLUSIVO de lo nuevo que sonará sin parar en el
+                            2026. 🌟
+                            Acompáñanos a este repaso musical con sorpresas, saludos y momentos inolvidables. ✨</p>
+                    </div>
+                </article>
+
+                <hr>
+
+                <article class="post-detail__article" id="evento3">
+                    <h1 class="post-detail__title"> 📻 ¡BINGO RADIAL TRISKEL! Tu Fiesta Dominical de Música y Suerte 🥳
+                    </h1>
+
+                    <img src="{% static 'imagenes/bingo.jpeg' %}" alt="Bingo" class="post-detail__image"
+                        onerror="this.onerror=null;this.src='https://placehold.co/800x400/9C27B0/white?text=Evento+3';">
+
+                    <p class="post-detail__lead">
+                        📻 ¡BINGO RADIAL TRISKEL! Tu Fiesta Dominical de Música y Suerte 🥳
+                    </p>
+
+                    <div class="post-detail__content">
+                        <p>¡Ey, Familia Triskel! ¿Ya tienes planes para el domingo? ¡Pues ya los tienes!
+                            Te invitamos a nuestro Bingo Radial Semanal, la excusa perfecta para terminar la semana con
+                            la mejor energía y la posibilidad de gritar ¡BINGO!
+                            Ponemos la casa, la buena música y la mejor onda para acompañar tus cartones. Es totalmente
+                            gratis, solo necesitas escucharnos por la Web y meterte al chat. ¡Vamos a pasarla genial!
+                        </p>
+                    </div>
+                </article>
+
+                <hr>
+
+                <article class="post-detail__article" id="evento4">
+                    <h1 class="post-detail__title">🎧 ¡Y si gente! Llega el "Viernes de Delivery" a Radio Triskel</h1>
+
+                    <img src="{% static 'imagenes/viernes_delivery.jpeg' %}" alt="Viernes Delivery" class="post-detail__image"
+                        onerror="this.onerror=null;this.src='https://placehold.co/800x400/4CAF50/white?text=Evento+4';">
+
+                    <p class="post-detail__lead">
+                        ¡Prepárate! Cada viernes, vos te convertis en el DJ. De la Radio.
+                    </p>
+
+                    <div class="post-detail__content">
+                        <p>Hace tu pedido...
+                            ✨ ¡Pedí tus Canciónes! Durante la toda semana.
+                            Agrégale si tenes Planazo (Tu previa, tu cena, tu relax...)
+                            Agendalo y Reserva tu lugar,
+                            X nuestros canales WhatsApp , Chat...
+                             Y Listo!.
+                            ¡El Viernes SALE  con fritas!
+                            ¡Anímate! No dejes que tu Previa Decaiga. Arma la Playlist de fin de semana.
+                            🎶 ¿Cuál es tu primer pedido? ¡DALEEE!</p>
+                    </div>
+                </article>
             </section>
 
             <aside class="sidebar">
@@ -204,7 +237,7 @@
                     <ul class="footer__list">
                         <li><a href="{% url 'home' %}">Inicio</li>
                         <li><a href="{% url 'lista_categorias_general' %}">Categorías</a></li>
-                        <li><a href="{% url  'eventos' %}">Eventos</a></li>
+                        <li><a href="#">Eventos</a></li>
                         <li><a href="#">Contacto</a></li>
                         <li><a href="{% url 'pautas' %}">Pautas de la Comunidad</a></li>
 
@@ -251,101 +284,9 @@
         </div>
     </footer>
 
-
-    <div class="comments-panel">
-    <div class="comments-panel__header">
-        <h4 class="comments-panel__title">
-            <i data-lucide="message-square" style="margin-right:0.5rem;"></i>
-            Comentarios ({{ comentarios.count }})  </h4>
-        <button class="comments-panel__close-button" aria-label="Cerrar panel">
-            <i data-lucide="x"></i>
-        </button>
-    </div>
-
-    {% if user.is_authenticated %}
-        
-        <form method="post" action="{% url 'detalle_articulo' pk=post.pk %}" class="comments-panel__form">
-            {% csrf_token %} {{ form_comentario.contenido_comentario }} 
-            
-            {{ form_comentario.contenido_comentario.errors }}
-            {{ form_comentario.non_field_errors }} 
-            
-            <button type="submit" class="comments-panel__login-button">
-                Enviar Comentario
-            </button>
-        </form>
-    
-    {% else %}
-        <p class="comments-panel__info">
-            Inicia sesión para dejar un comentario. Recuerda revisar nuestras
-            <a href="{% url 'pautas' %}">pautas de la comunidad</a>.
-        </p>
-
-        <a href="{% url 'blog_auth:login' %}?next={{ request.path }}" class="comments-panel__login-button">
-            Inicia sesión para comentar
-        </a>
-    
-    {% endif %}
-
-
-    <div class="comments-panel__comment-list">
-        <select class="comments-panel__sort-select">
-            <option>Ordenar por: Más nuevos</option>
-            <option>Ordenar por: Más votados</option>
-        </select>
-        
-        {% for comentario in comentarios %}
-            <div class="comments-panel__comment-item">
-                <p>
-                    <strong>{{ comentario.autor_comentario.username }}</strong> 
-                    <small class="text-muted">({{ comentario.fecha_comentario|date:"d M Y H:i" }})</small>
-                </p>
-                <p>{{ comentario.contenido_comentario }}</p>
-            </div>
-        {% empty %}
-            <p class="comments-panel__no-comments">Sé el primero en comentar este artículo.</p>
-        {% endfor %}
-
-    </div>
-</div>
-
     <script>
         // Inicializa íconos de Lucide
         lucide.createIcons();
-
-        // --- Lógica del Panel Lateral de Comentarios ---
-        const commentsPanel = document.querySelector('.comments-panel');
-        // Usamos el nuevo selector 'data-action' para los botones de comentario
-        const openButtons = document.querySelectorAll('[data-action="open-comments"]');
-        const closeButton = document.querySelector('.comments-panel__close-button');
-
-
-        function openCommentsPanel(event) {
-            if (event) {
-                event.preventDefault(); // Previene la navegación si fuera un enlace
-            }
-            commentsPanel.classList.add('comments-panel--open');
-        }
-
-        function closeCommentsPanel() {
-            commentsPanel.classList.remove('comments-panel--open');
-        }
-
-        // 1. Asignar listener a todos los botones de comentarios para abrir el panel
-        openButtons.forEach(button => {
-            button.addEventListener('click', openCommentsPanel);
-        });
-
-        // 2. Asignar listener al botón de cierre
-        closeButton.addEventListener('click', closeCommentsPanel);
-
-        // 3. Opcional: Cerrar al presionar la tecla ESC
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape' && commentsPanel.classList.contains('comments-panel--open')) {
-                closeCommentsPanel();
-            }
-        });
-
     </script>
 </body>
 
