@@ -7,40 +7,68 @@ from .models import Categoria
 from django.template.loader import render_to_string #para mostrar comentarios filtrados sin recargar la pagina
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 
 def home(request):
     
+    # --- 1. Obtener parámetros de ordenación y búsqueda ---
     orden = request.GET.get('order_by', 'reciente') 
+    search_term = request.GET.get('q')
 
-    # 2. Obtener y preparar el Post Destacado (Esta lógica se mantiene igual)
+    # --- 2. Post Destacado ---
+    # Lo obtenemos y anotamos aparte, ya que lo excluiremos de la lista principal.
     post_destacado = Post.objects.filter(es_destacado=True).annotate(
         total_comentarios=Count('comentarios')
     ).first()
     
-    posts = Post.objects.all().order_by()
-    posts = posts.annotate(total_comentarios=Count('comentarios'))
+    # --- 3. Definición BASE de la lista de Posts (IMPORTANTE: Se define SIEMPRE) ---
+    # Usaremos 'posts' como nuestra variable principal para la consulta.
+    posts = Post.objects.all().annotate(total_comentarios=Count('comentarios'))
 
+    # --- 4. Aplicar ORDENACIÓN ---
     if orden == 'antiguedad':
         posts = posts.order_by('fecha_creacion') 
     elif orden == 'alfabetico_asc':
-        posts = posts.order_by('titulo')       
+        posts = posts.order_by('titulo') 
     elif orden == 'alfabetico_desc':
         posts = posts.order_by('-titulo')
-    else:
+    else: # 'reciente' (o cualquier otro valor por defecto)
         posts = posts.order_by('-fecha_creacion')
         
+    # --- 5. Aplicar FILTRO DE BÚSQUEDA ---
+    if search_term:
+        posts = posts.filter(titulo__icontains=search_term)
+        
+    # --- 6. Excluir Post Destacado de la lista principal (Lógica de Limpieza) ---
     if post_destacado:
-
-        posts = posts.exclude(id_post=post_destacado.id_post)
+        # Aquí usamos 'posts', que es la variable principal que estamos construyendo.
+        posts = posts.exclude(id=post_destacado.id) # Usa 'id' si ese es el nombre de tu PK
+        
+    # -----------------------------------------------------------------
+    # Línea de Paginación (Ahora siempre accederá a 'posts')
+    # -----------------------------------------------------------------
+    
+    # Nota: Tu código tenía dos paginaciones, simplificamos a una sola.
+    posts_por_pagina = 4 
+    paginator = Paginator(posts, posts_por_pagina)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
         
     context = {
-        "posts": posts, 
+        # Enviamos la lista paginada ('page_obj') en lugar de la consulta completa.
+        "posts": page_obj.object_list, 
         "post_destacado": post_destacado,
-        "orden_actual": orden 
+        "orden_actual": orden,
+        "page_obj": page_obj, # El objeto de paginación completo
     }
 
     return render(request, 'index_final.html', context)
+
+
+        
+
+    
 
 
 def pautas(request):
