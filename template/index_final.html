@@ -37,6 +37,14 @@
                 <a href="#">Contacto</a>
                 <a href="{% url 'pautas' %}">Pautas de la Comunidad</a>
                 {% if user.is_authenticated %}
+                    <a href="{% url 'crear_post' %}" class="header__nav-link" style="background: 0;
+                    border: 0;
+                    color: black;
+                    cursor: pointer;
+                    font-family: inherit;
+                    font-size: inherit;
+                    padding: 0;">
+                     CREAR POST</a>
                     <form method="post" action="{% url 'logout' %}" style="display: inline;">
                     {% csrf_token %}
                     <button type="submit" class="header__nav-link" style="background: 0;
@@ -88,8 +96,52 @@
                 </svg>
             </button>
         </div>
+        <section class="article-section">
+            {% block changing_content %} 
+                {% endblock changing_content %}
+        </section>
+        {% block sidebar_content %}
+            <aside class="sidebar">
+                <div class="sidebar__widget"></div>
+            </aside>
+        {% endblock sidebar_content %}
+        </div>
     </header>
 
+    <!-- aca vamos a filtrar los post por antiguedad y orden alfabetico-->
+    <div class="post-sorting-options">
+    <h4>Ordenar post:</h4>
+    
+    <a href="{% url 'home' %}?order_by=reciente" 
+       class="filtro-btn {% if orden_actual == 'reciente' %}activo{% endif %} btn btn-primary" >
+        Más Nuevos
+    </a>
+    
+    |
+    
+    <a href="{% url 'home' %}?order_by=antiguedad" 
+       class="filtro-btn {% if orden_actual == 'antiguedad' %}activo{% endif %} btn btn-primary">
+        Más Antiguos
+    </a>
+    
+    |
+    
+    <a href="{% url 'home' %}?order_by=alfabetico_asc" 
+       class="filtro-btn {% if orden_actual == 'alfabetico_asc' %}activo{% endif %} btn btn-primary">
+        A-Z
+    </a>
+    
+    |
+    
+    <a href="{% url 'home' %}?order_by=alfabetico_desc" 
+       class="filtro-btn {% if orden_actual == 'alfabetico_desc' %}activo{% endif %} btn btn-primary">
+        Z-A
+    </a>
+</div>
+<hr>
+
+{% for post in posts %}
+    {% endfor %}
     <!-- 2. POST DESTACADO (Ocupa todo el ancho del contenedor) -->
     <section class="container featured-section">
         <h2 class="featured__title">Destacado</h2>
@@ -219,9 +271,8 @@
                             style="width:1rem; height:1rem; margin:0; vertical-align:middle;"></i>
                     </a>
                 </div>
-
             </section>
-
+            
             <!-- COLUMNA DE SIDEBAR (1/3 del ancho en escritorio) -->
             <aside class="sidebar">
 

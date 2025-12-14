@@ -39,6 +39,8 @@ urlpatterns = [
     path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
     
     path('articulo/<int:pk>/comentarios-ajax/', views.lista_comentarios_ajax, name='comentarios_ajax'), #ajax para filtrar comentarios
+    path('crear/', views.crear_post, name='crear_post'),
+    path('articulo/<int:id_post>/', views.detalle_articulo, name='detalle_articulo'),
 
 ]
 

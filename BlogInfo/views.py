@@ -1,23 +1,46 @@
 from django.shortcuts import render, get_object_or_404,redirect #luego de hacer comentario para que no de error
 from django.http import HttpResponse
-from .models import Post
+from .models import Post, Autor
 from django.db.models import Count
-from .forms import FormularioComentario
+from .forms import FormularioComentario, PostForm
 from .models import Categoria
 from django.template.loader import render_to_string #para mostrar comentarios filtrados sin recargar la pagina
 from django.contrib.auth.models import User
-from django.utils import timezone
+from django.contrib.auth.decorators import login_required
 
-# Create your views here.
+
 def home(request):
     
-    post_destacado = Post.objects.filter(es_destacado=True).annotate(total_comentarios=Count('comentarios')).first()
-    posts= Post.objects.annotate(total_comentarios=Count('comentarios')).order_by("fecha_creacion")
-    if post_destacado:
-        posts = posts.exclude(id_post=post_destacado.id_post)
-    context = {"posts": posts, "post_destacado":post_destacado}
+    orden = request.GET.get('order_by', 'reciente') 
 
-    return render(request,'index_final.html',context)
+    # 2. Obtener y preparar el Post Destacado (Esta lógica se mantiene igual)
+    post_destacado = Post.objects.filter(es_destacado=True).annotate(
+        total_comentarios=Count('comentarios')
+    ).first()
+    
+    posts = Post.objects.all().order_by()
+    posts = posts.annotate(total_comentarios=Count('comentarios'))
+
+    if orden == 'antiguedad':
+        posts = posts.order_by('fecha_creacion') 
+    elif orden == 'alfabetico_asc':
+        posts = posts.order_by('titulo')       
+    elif orden == 'alfabetico_desc':
+        posts = posts.order_by('-titulo')
+    else:
+        posts = posts.order_by('-fecha_creacion')
+        
+    if post_destacado:
+
+        posts = posts.exclude(id_post=post_destacado.id_post)
+        
+    context = {
+        "posts": posts, 
+        "post_destacado": post_destacado,
+        "orden_actual": orden 
+    }
+
+    return render(request, 'index_final.html', context)
 
 
 def pautas(request):
@@ -122,3 +145,26 @@ def lista_comentarios_ajax(request, pk):
     )
     
     return HttpResponse(html_comentarios)
+
+
+@login_required
+def crear_post(request):
+    if request.method == 'POST':
+        
+        form = PostForm(request.POST, request.FILES) 
+        
+        if form.is_valid():
+            nuevo_post = form.save(commit=False)
+            try:
+                autor_del_usuario = request.user.autor 
+            except Autor.DoesNotExist:
+                return render(request, 'error.html', {'mensaje': 'Su cuenta no tiene un perfil de autor configurado.'})
+
+            nuevo_post.autor_post = autor_del_usuario
+            nuevo_post.save()
+            form.save_m2m() 
+            return redirect('detalle_articulo', id_post=nuevo_post.id_post) 
+    else:
+        form = PostForm()
+        
+    return render(request, 'crear_post.html', {'form': form})
