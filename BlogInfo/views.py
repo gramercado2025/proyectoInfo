@@ -53,10 +53,6 @@ def home(request):
 
     return render(request, 'index_final.html', context)
 
-def pautas(request):
-    #return HttpResponse("Bienvenido a la página prncipal")
-    return render(request,'pautas_Blog.html')
-
 def detalle_articulo(request, pk):
     post = get_object_or_404(Post, pk=pk)
     comentarios = post.comentarios.all().order_by('-fecha_comentario') 
@@ -104,4 +100,10 @@ def posts_por_categoria(request, pk):
     }
     return render(request, 'categorias.html', context)
 
+def pautas(request):
+    
+    return render(request,'pautas_Blog.html')
 
+def eventos(request):
+   
+    return render(request, 'eventos.html', {})

@@ -33,7 +33,7 @@
             <nav class="header__nav">
                 <a href="#">Inicio</a>
                 <a href="{% url 'lista_categorias_general' %}">Categorías</a>
-                <a href="#">Eventos</a>
+                <a href="{% url  'eventos' %}">Eventos</a>
                 <a href="#">Contacto</a>
                 <a href="{% url 'pautas' %}">Pautas de la Comunidad</a>
             </nav>
@@ -249,11 +249,11 @@
                         Categorías
                     </h3>
                     <ul class="widget__list">
-                        <li><a href="#">Pop Argentino</a> <span class="widget__count">12</span></li>
-                        <li><a href="#">Rock Clásico</a> <span class="widget__count">8</span></li>
-                        <li><a href="#">Pop Internacional</a> <span class="widget__count">5</span></li>
-                        <li><a href="#">Novedades Radio</a> <span class="widget__count">3</span></li>
-                        <li><a href="#">Lo mejor de</a> <span class="widget__count">7</span></li>
+                        <li><a href="#">Historia Musical</a> <span class="widget__count">2</span></li>
+                        <li><a href="#">Lo mejor de </a> <span class="widget__count">1</span></li>
+                        <li><a href="#">Novedades de la radio</a> <span class="widget__count">1</span></li>
+                        <li><a href="#">Pop Argentino</a> <span class="widget__count">1</span></li>
+                        <li><a href="#">Pop Internacional</a> <span class="widget__count">1</span></li>
                     </ul>
                 </div>
 
@@ -265,24 +265,24 @@
                     </h3>
                     <ul class="widget__list">
                         <li>
-                            <a href="#"> </a>
+                            <a href="#">El fenómeno Taylor Swift</a>
                             <span class="widget__count text-light">2.5k vistas</span>
                         </li>
                         <li>
-                            <a href="#"> </a>
+                            <a href="#">Miranda! continúa escribiendo la historia</a>
                             <span class="widget__count text-light">1.8k vistas</span>
                         </li>
                         <li>
-                            <a href="#"> </a>
+                            <a href="#">Depeche Mode: Los Maestros</a>
                             <span class="widget__count text-light">1.5k vistas</span>
                         </li>
                         <li>
-                            <a href="#"> </a>
+                            <a href="#">Las 20 mejores bandas estadounidenses</a>
                             <span class="widget__count text-light">1.2k vistas</span>
                         </li>
                     </ul>
                 </div>
-                <!-- Widget: Tags / Etiquetas -->
+                <!-- Widget: Tags / Etiquetas
                 <div class="sidebar__widget">
                     <h3 class="widget__title">
                         <i data-lucide="tag" class="icon"></i>
@@ -297,7 +297,7 @@
                         <a href="#" class="widget__tag">#PopLatino</a>
                         <a href="#" class="widget__tag">#Festivales</a>
                     </div>
-                </div>
+                </div> -->
             </aside>
 
         </div>
@@ -319,7 +319,7 @@
                     <ul class="footer__list">
                         <li><a href="#">Inicio</a></li>
                         <li><a href="{% url 'lista_categorias_general' %}">Categorías</a></li>
-                        <li><a href="#">Eventos</a></li>
+                        <li><a href="{% url  'eventos' %}">Eventos</a></li>
                         <li><a href="#">Contacto</a></li>
                         <li><a href="{% url 'pautas' %}">Pautas de la Comunidad</a></li>
 

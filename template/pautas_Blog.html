@@ -32,7 +32,7 @@
             <nav class="header__nav">
                 <a href="{% url 'home' %}">Inicio</a>
                 <a href="{% url 'lista_categorias_general' %}">Categorías</a>
-                <a href="#">Eventos</a>
+                <a href="{% url  'eventos' %}">Eventos</a>
                 <a href="#">Contacto</a>
                 <a href="#">Pautas de la Comunidad</a>
             </nav>
@@ -172,7 +172,7 @@
                     <ul class="footer__list">
                         <li><a href="{% url 'home' %}">Inicio</a></li>
                         <li><a href="{% url 'lista_categorias_general' %}">Categorías</a></li>
-                        <li><a href="#">Eventos</a></li>
+                        <li><a href="{% url  'eventos' %}">Eventos</a></li>
                         <li><a href="#">Contacto</a></li>
                         <li><a href="#">Pautas de la Comunidad</a></li>
 
