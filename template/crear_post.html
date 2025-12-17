@@ -1,25 +1,24 @@
 {% extends "index_final.html" %}
     {% block changing_content %} 
-    
     <div class="container mt-5">
-         <div class="row justify-content-center">
-             <div class="col-md-8">
-                <h2 class="mb-4">Escribir un Nuevo Artículo</h2>
-                 <hr>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+            <h2 class="mb-4">Escribir un Nuevo Artículo</h2>
+                <hr>
 
-                <form method="POST" enctype="multipart/form-data"> 
-                
-                 {% csrf_token %} 
-                
-                 {{ form.as_p }}
-                
-                <div class="d-grid gap-2 mt-4">
-                    <button type="submit" class="btn btn-success btn-lg">
-                        <i class="fas fa-paper-plane"></i> Publicar Artículo
-                    </button>
-                </div>
-            </form>
+            <form method="POST" enctype="multipart/form-data"> 
+            
+                {% csrf_token %} 
+            
+                {{ form.as_p }}
+            
+            <div class="d-grid gap-2 mt-4">
+                <button type="submit" class="btn btn-success btn-lg">
+                    <i class="fas fa-paper-plane"></i> Publicar Artículo
+                </button>
             </div>
+        </form>
+        </div>
     </div>
 </div>
 {% endblock changing_content %}

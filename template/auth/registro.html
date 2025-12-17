@@ -1,20 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Página Web</title>
-    
-    <link rel="stylesheet" href="static/css/style_registro.css"></head>
+    <title>Registro TriskelBlog</title>
+    <link rel="stylesheet" href="{% static 'css/style_registro.css' %}"></head>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Formulario de registro</h2>
 
-<h2>Formulario de registro</h2>
-<form method="POST">
-{% csrf_token %}
-{{ form.as_p }}
-<button type="submit">
-Registrarme
-</button>
-</form>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">
+            Registrarme
+            </button>
+        </form>
 
-<p>
-Ya tenés una cuenta?
-<a href="{% url 'login'%}">Iniciar sesión</a>
-</p>
+        <p>
+        Ya tenés una cuenta?
+        <a href="{% url 'login'%}">Iniciar sesión</a>
+        </p>
+    </div>
+</body>
+</html>

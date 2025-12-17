@@ -397,39 +397,7 @@
         }
     }
 
-    /* Paginación */
-    /* .pagination {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 0.5rem;
-        margin-top: 2rem;
-    }
-
-    .pagination__link {
-        padding: 0.5rem 1rem;
-        border: 1px solid var(--card-border);
-        border-radius: 0.5rem;
-        color: var(--text-light);
-        font-size: 0.875rem;
-        transition: background-color 0.2s ease;
-    }
-
-    .pagination__link:hover {
-        background-color: #f0f0f0;
-    }
-
-    .pagination__link.active {
-        background-color: var(--primary-color);
-        color: white;
-        border-color: var(--primary-color);
-    } */
-
-    /* style.css - Estilos de Paginación para Blog Radio Triskel */
-
-    /* style.css - Estilos de Paginación (Iconos y Rojo/Gris) */
-
-    /* Contenedor principal de la paginación */
+       /* Contenedor principal de la paginación */
     .pagination {
         display: flex; 
         justify-content: center; 
@@ -487,6 +455,51 @@
         cursor: not-allowed;
         border: 1px solid #dee2e6;
     }
+
+/* Contenedor de los filtros */
+.post-sorting-options {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 20px 0;
+    padding: 10px 0;
+}
+
+.post-sorting-options h4 {
+    margin: 0;
+    font-size: 1rem;
+    color: #333;
+}
+
+/* Estilo base del botón (simulando btn-primary) */
+.filtro-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    border: 2px solid #dc3545;
+    background-color: transparent;
+    color: #dc3545;
+    cursor: pointer;
+}
+
+/* Efecto Hover */
+.filtro-btn:hover {
+    background-color: #dc3545;
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Clase para el botón que está seleccionado actualmente */
+.filtro-btn.activo {
+    background-color: #dc3545;
+    color: #fff;
+    box-shadow: 0 2px 5px rgba(220, 53, 69, 0.3);
+}
+
     /* ==================================== */
     /* 6. SIDEBAR (ASIDE) */
     /* ==================================== */
