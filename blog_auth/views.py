@@ -4,10 +4,8 @@ from django.contrib.auth import authenticate, login as auth_login, logout as aut
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 
-
-
 # Create your views here.
-def registro(request):
+""" def registro(request):
     if request.method=='POST':
         form = RegistroForm(request.POST)
         if form.is_valid():
@@ -16,8 +14,19 @@ def registro(request):
     else:
         form = RegistroForm()       # En este caso no es un POST, entonces es un get
 
-    return render(request, "registro.html", {'form':form}) # Como contexto le paso form
+    return render(request, "registro.html", {'form':form}) # Como contexto le paso form """
 
+def registro(request):
+    if request.method == 'POST':
+        form = RegistroForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # Si tu index se llama 'home', usá este:
+            return redirect('home') 
+    else:
+        form = RegistroForm()
+
+    return render(request, "registro.html", {'form': form})
 
 
 def login_usuario(request):

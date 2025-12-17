@@ -1,16 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Página Web</title>
+    <title>Iniciar Sesión - Mi Sitio Web</title>
     
-    <link rel="stylesheet" href="static/css/style_registro.css"></head>
+    <!-- Carga correcta del archivo CSS usando la etiqueta static -->
+    <link rel="stylesheet" href="{% static 'css/style_registro.css' %}">
+</head>
+<body>
 
-<h2>Iniciar Sesión</h2>
-<form method="POST">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">
-    Entrar
-  </button>
-</form>
+    <div class="form-container">
+      
+      <h2>Iniciar Sesión</h2>
+      
+      <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">
+          Entrar
+        </button>
+      </form>
+      
+      <div style="text-align: center; margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px;">
+          <p>¿No tenés cuenta todavía?</p>
+          <a href="{% url 'blog_auth:registro' %}" style="color: #dc3545; font-weight: bold; text-decoration: none;">
+              Registrate acá
+          </a>
+      </div>
 
+
+ </body>
+</html>
