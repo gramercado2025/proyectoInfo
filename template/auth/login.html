@@ -1,14 +1,16 @@
-<h2>Formulario de registro</h2>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Página Web</title>
+    
+    <link rel="stylesheet" href="static/css/style_registro.css"></head>
+
+<h2>Iniciar Sesión</h2>
 <form method="POST">
   {% csrf_token %}
   {{ form.as_p }}
   <button type="submit">
-    Registrarme
+    Entrar
   </button>
 </form>
-
-<p>
-  Ya tenes una cuenta?
-  <a href="{% url 'login'%}">Iniciar sesión</a>
-</p>
 

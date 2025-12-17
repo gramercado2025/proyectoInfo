@@ -22,6 +22,7 @@ from django.urls import path,include
 from BlogInfo import views
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views #para log aut
 
 
 
@@ -34,7 +35,12 @@ urlpatterns = [
     path('categorias/', views.lista_categorias_general, name='lista_categorias_general'),
     path('categoria/<int:pk>/', views.posts_por_categoria, name='posts_por_categoria'),  
     path('articulo/<int:pk>/', views.detalle_articulo, name='detalle_articulo'),
-    path('accounts/', include('django.contrib.auth.urls')), 
+    path('accounts/login/', auth_views.LoginView.as_view(template_name='auth/login.html'), name='login'),
+    path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
+    
+    path('articulo/<int:pk>/comentarios-ajax/', views.lista_comentarios_ajax, name='comentarios_ajax'), #ajax para filtrar comentarios
+    path('crear/', views.crear_post, name='crear_post'),
+    path('articulo/<int:id_post>/', views.detalle_articulo, name='detalle_articulo'),
 
 ]
 

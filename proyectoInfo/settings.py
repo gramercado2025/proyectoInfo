@@ -85,7 +85,7 @@ TEMPLATES_AUTH = os.path.join(BASE_DIR, 'template/auth') # Carpeta de Logueo y R
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATES_DIR,TEMPLATES_BLOG,TEMPLATES_AUTH],  # Agrego la carpeta de Template de Registro y de logueo OK!
+        'DIRS': [TEMPLATES_DIR,TEMPLATES_BLOG,TEMPLATES_AUTH,"template"],  # Agrego la carpeta de Template de Registro y de logueo OK!
         # Notar: En la clase DIRS no tien corchetes pero si se los saco da error
         'APP_DIRS': True,
         'OPTIONS': {
@@ -253,3 +253,8 @@ CKEDITOR_CONFIGS = {
     }
 }
 
+LOGOUT_REDIRECT_URL = '/' #para que redirija si no tiene a donde y el logout funcione
+
+LOGIN_REDIRECT_URL = '/' 
+
+LOGIN_URL = '/'

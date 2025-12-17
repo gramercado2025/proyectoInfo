@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
-import PIL
 
 class Autor(models.Model):
     id_autor=models.BigAutoField(primary_key=True)
