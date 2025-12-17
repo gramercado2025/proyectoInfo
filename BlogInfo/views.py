@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404,redirect #luego de hacer comentario para que no de error
 from django.http import HttpResponse
-from .models import Post, Autor
+from .models import Post, Autor, Comentario, Categoria
 from django.db.models import Count
 from .forms import FormularioComentario, PostForm
-from .models import Categoria
+from django.core.paginator import Paginator # Para la paginacion
+from django.db.models import Count
 from django.template.loader import render_to_string #para mostrar comentarios filtrados sin recargar la pagina
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -18,13 +19,15 @@ def home(request):
 
     # --- 2. Post Destacado ---
     # Lo obtenemos y anotamos aparte, ya que lo excluiremos de la lista principal.
-    post_destacado = Post.objects.filter(es_destacado=True).annotate(
-        total_comentarios=Count('comentarios')
-    ).first()
+    post_destacado = Post.objects.filter(es_destacado=True).annotate(total_comentarios=Count('comentarios')).first()   
     
     # --- 3. Definición BASE de la lista de Posts (IMPORTANTE: Se define SIEMPRE) ---
     # Usaremos 'posts' como nuestra variable principal para la consulta.
+    # posts = Post.objects.all().annotate(total_comentarios=Count('comentarios')).order_by(-"fecha_creacion")
     posts = Post.objects.all().annotate(total_comentarios=Count('comentarios'))
+    # 4. Excluir el post destacado
+    if post_destacado:
+        posts = posts.exclude(id_post=post_destacado.id_post)
 
     # --- 4. Aplicar ORDENACIÓN ---
     if orden == 'antiguedad':
@@ -43,8 +46,8 @@ def home(request):
     # --- 6. Excluir Post Destacado de la lista principal (Lógica de Limpieza) ---
     if post_destacado:
         # Aquí usamos 'posts', que es la variable principal que estamos construyendo.
-        posts = posts.exclude(id=post_destacado.id) # Usa 'id' si ese es el nombre de tu PK
-        
+        # posts = posts.exclude(id=post_destacado.id) # Usa 'id' si ese es el nombre de tu PK
+        posts = posts.exclude(id_post=post_destacado.id_post)
     # -----------------------------------------------------------------
     # Línea de Paginación (Ahora siempre accederá a 'posts')
     # -----------------------------------------------------------------
@@ -64,16 +67,6 @@ def home(request):
     }
 
     return render(request, 'index_final.html', context)
-
-
-        
-
-    
-
-
-def pautas(request):
-    #return HttpResponse("Bienvenido a la página prncipal")
-    return render(request,'pautas_Blog.html')
 
 def detalle_articulo(request, pk):
     post = get_object_or_404(Post, pk=pk)
@@ -139,6 +132,14 @@ def posts_por_categoria(request, pk):
         "posts": posts,         
     }
     return render(request, 'categorias.html', context)
+
+def pautas(request):
+    
+    return render(request,'pautas_Blog.html')
+
+def eventos(request):
+   
+    return render(request, 'eventos.html', {})
 
 def lista_comentarios_ajax(request, pk):
     #logica igual a detalle_articulo sin el formulario y ni post

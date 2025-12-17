@@ -30,7 +30,7 @@
             <nav class="header__nav">
                 <a href="{% url 'home' %}">Inicio</a>
                 <a href="{% url 'lista_categorias_general' %}">Categorías</a>
-                <a href="#">Eventos</a>
+                <a href="{% url  'eventos' %}">Eventos</a>
                 <a href="#">Contacto</a>
                 <a href="{% url 'pautas' %}">Pautas de la Comunidad</a>
             </nav>
@@ -96,11 +96,11 @@
                     Categorías
                 </h3>
                 <ul class="widget__list">
-                    <li><a href="#">Pop Argentino</a> <span class="widget__count">12</span></li>
-                    <li><a href="#">Rock Clásico</a> <span class="widget__count">8</span></li>
-                    <li><a href="#">Pop Internacional</a> <span class="widget__count">5</span></li>
-                    <li><a href="#">Novedades Radio</a> <span class="widget__count">3</span></li>
-                    <li><a href="#">Lo mejor de</a> <span class="widget__count">7</span></li>
+                    <li><a href="#">Historia Musical</a> <span class="widget__count">2</span></li>
+                        <li><a href="#">Lo mejor de </a> <span class="widget__count">1</span></li>
+                        <li><a href="#">Novedades de la radio</a> <span class="widget__count">1</span></li>
+                        <li><a href="#">Pop Argentino</a> <span class="widget__count">1</span></li>
+                        <li><a href="#">Pop Internacional</a> <span class="widget__count">1</span></li>
                 </ul>
             </div>
 
@@ -160,7 +160,7 @@
                     <ul class="footer__list">
                         <li><a href="{% url 'home' %}">Inicio</li>
                         <li><a href="{% url 'lista_categorias_general' %}">Categorías</a></li>
-                        <li><a href="#">Eventos</a></li>
+                        <li><a href="{% url  'eventos' %}">Eventos</a></li>
                         <li><a href="#">Contacto</a></li>
                         <li><a href="{% url 'pautas' %}">Pautas de la Comunidad</a></li>
 

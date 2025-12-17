@@ -33,7 +33,7 @@
             <nav class="header__nav">
                 <a href="#">Inicio</a>
                 <a href="{% url 'lista_categorias_general' %}">Categorías</a>
-                <a href="#">Eventos</a>
+                <a href="{% url  'eventos' %}">Eventos</a>
                 <a href="#">Contacto</a>
                 <a href="{% url 'pautas' %}">Pautas de la Comunidad</a>
                 {% if user.is_authenticated %}
@@ -62,7 +62,6 @@
     {% endif %}
 
 </nav>
-            </nav>
 
             <!-- Para mensajeria interna AGREGARLO A DetalleArticulo.index, y a los demas index--> 
             {% if messages %}
@@ -189,7 +188,8 @@
         </article>
     {% endif%}
     </section>
-
+    {% block changing_content %} 
+    {%endblock%}
     <!-- 3. CONTENIDO PRINCIPAL (Artículos + Sidebar en 2 Columnas) -->
     <main class="container main-content">
         <div class="main-grid">
@@ -197,7 +197,7 @@
             <!-- COLUMNA DE ARTÍCULOS (2/3 del ancho en escritorio) -->
             <section class="article-section">
 
-                {% for post in posts %}
+                {% for post in page_obj %}
                  <!-- Artículo con imagen 1-->
                  <article class="post-card">
 
@@ -291,11 +291,11 @@
                         Categorías
                     </h3>
                     <ul class="widget__list">
-                        <li><a href="#">Pop Argentino</a> <span class="widget__count">12</span></li>
-                        <li><a href="#">Rock Clásico</a> <span class="widget__count">8</span></li>
-                        <li><a href="#">Pop Internacional</a> <span class="widget__count">5</span></li>
-                        <li><a href="#">Novedades Radio</a> <span class="widget__count">3</span></li>
-                        <li><a href="#">Lo mejor de</a> <span class="widget__count">7</span></li>
+                        <li><a href="#">Historia Musical</a> <span class="widget__count">2</span></li>
+                        <li><a href="#">Lo mejor de </a> <span class="widget__count">1</span></li>
+                        <li><a href="#">Novedades de la radio</a> <span class="widget__count">1</span></li>
+                        <li><a href="#">Pop Argentino</a> <span class="widget__count">1</span></li>
+                        <li><a href="#">Pop Internacional</a> <span class="widget__count">1</span></li>
                     </ul>
                 </div>
 
@@ -307,24 +307,24 @@
                     </h3>
                     <ul class="widget__list">
                         <li>
-                            <a href="#"> </a>
+                            <a href="#">El fenómeno Taylor Swift</a>
                             <span class="widget__count text-light">2.5k vistas</span>
                         </li>
                         <li>
-                            <a href="#"> </a>
+                            <a href="#">Miranda! continúa escribiendo la historia</a>
                             <span class="widget__count text-light">1.8k vistas</span>
                         </li>
                         <li>
-                            <a href="#"> </a>
+                            <a href="#">Depeche Mode: Los Maestros</a>
                             <span class="widget__count text-light">1.5k vistas</span>
                         </li>
                         <li>
-                            <a href="#"> </a>
+                            <a href="#">Las 20 mejores bandas estadounidenses</a>
                             <span class="widget__count text-light">1.2k vistas</span>
                         </li>
                     </ul>
                 </div>
-                <!-- Widget: Tags / Etiquetas -->
+                <!-- Widget: Tags / Etiquetas
                 <div class="sidebar__widget">
                     <h3 class="widget__title">
                         <i data-lucide="tag" class="icon"></i>
@@ -339,12 +339,12 @@
                         <a href="#" class="widget__tag">#PopLatino</a>
                         <a href="#" class="widget__tag">#Festivales</a>
                     </div>
-                </div>
+                </div> -->
             </aside>
 
         </div>
     </main>
-
+   
     <!-- 4. FOOTER -->
     <footer class="footer">
         <div class="container">
@@ -360,8 +360,8 @@
                     <h4 class="footer__section-title">Enlaces Rápidos</h4>
                     <ul class="footer__list">
                         <li><a href="#">Inicio</a></li>
-                        <li><a href="#">Categorías</a></li>
-                        <li><a href="#">Eventos</a></li>
+                        <li><a href="{% url 'lista_categorias_general' %}">Categorías</a></li>
+                        <li><a href="{% url  'eventos' %}">Eventos</a></li>
                         <li><a href="#">Contacto</a></li>
                         <li><a href="{% url 'pautas' %}">Pautas de la Comunidad</a></li>
 
@@ -412,7 +412,7 @@
     </footer>
 
 
-    <!-- PANEL LATERAL DE COMENTARIOS (ACTUALIZADO) -->
+     <!-- PANEL LATERAL DE COMENTARIOS -->
     <div class="comments-panel">
         <div class="comments-panel__header">
             <h4 class="comments-panel__title">

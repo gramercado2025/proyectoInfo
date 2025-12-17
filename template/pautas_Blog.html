@@ -31,10 +31,10 @@
             <!-- Navegación -->
             <nav class="header__nav">
                 <a href="{% url 'home' %}">Inicio</a>
-                <a href="#">Categorías</a>
-                <a href="#">Eventos</a>
+                <a href="{% url 'lista_categorias_general' %}">Categorías</a>
+                <a href="{% url  'eventos' %}">Eventos</a>
                 <a href="#">Contacto</a>
-                <a href="{% url 'pautas' %}/a>">Pautas de la Comunidad</a>
+                <a href="#">Pautas de la Comunidad</a>
             </nav>
 
             <!-- Icono de Búsqueda (lucide: search) -->
@@ -171,10 +171,10 @@
                     <h4 class="footer__section-title">Enlaces Rápidos</h4>
                     <ul class="footer__list">
                         <li><a href="{% url 'home' %}">Inicio</a></li>
-                        <li><a href="#">Categorías</a></li>
-                        <li><a href="#">Eventos</a></li>
+                        <li><a href="{% url 'lista_categorias_general' %}">Categorías</a></li>
+                        <li><a href="{% url  'eventos' %}">Eventos</a></li>
                         <li><a href="#">Contacto</a></li>
-                        <li><a href="{% url 'pautas' %}">Pautas de la Comunidad</a></li>
+                        <li><a href="#">Pautas de la Comunidad</a></li>
 
                     </ul>
                 </div>
