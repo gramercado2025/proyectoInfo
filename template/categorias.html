@@ -1,214 +1,67 @@
+{% extends 'base.html' %}
 {% load static %}
-{% load humanize %}
 
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ categoria.nombre }} | Blog de Triskel Radio</title> 
-
-    <script src="https://unpkg.com/lucide@latest"></script>
-
-    <link rel="stylesheet" href="{% static 'css/style_categorias.css' %}">
-
-</head>
-
-<body>
-
-    <header class="header">
-        <div class="container header__container">
-
-            <a href="{% url 'home' %}" class="header__logo logo-with-icon">
-                <img src="{% static 'imagenes/logo radio.jpg' %}" alt="Logo de Mi Blog"
-                    onerror="this.onerror=null;this.src='https://placehold.co/60x60/f8f8f8/E53935?text=Logo';"
-                    class="logo-image">
-                Nuestro Blog
-            </a>
-
-            <nav class="header__nav">
-                <a href="{% url 'home' %}">Inicio</a>
-                <a href="{% url 'lista_categorias_general' %}">Categorías</a>
-                <a href="{% url  'eventos' %}">Eventos</a>
-                <a href="#">Contacto</a>
-                <a href="{% url 'pautas' %}">Pautas de la Comunidad</a>
-            </nav>
-            
-            <button class="header__search-button" aria-label="Buscar">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-search">
-                    <circle cx="11" cy="11" r="8" />
-                    <path d="m21 21-4.3-4.3" />
-                </svg>
-            </button>
-
-            <button class="header__menu-button" aria-label="Abrir menú">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-menu">
-                    <line x1="4" x2="20" y1="12" y2="12" />
-                    <line x1="4" x2="20" y1="6" y2="6" />
-                    <line x1="4" x2="20" y1="18" y2="18" />
-                </svg>
-            </button>
+{% block contenido_principal %}
+    
+    <div style="background: white; padding: 25px; border-radius: 12px; border: 1px solid #eee; box-shadow: 0 4px 6px rgba(0,0,0,0.02); margin-bottom: 40px;">
+        <label style="font-weight: 700; color: #444; display: block; margin-bottom: 12px; font-size: 1.1rem;">
+            Explora los post de cada categoría!
+        </label>
+        <div style="position: relative;">
+            <select onchange="location = this.value;" 
+                    style="width: 100%; max-width: 450px; padding: 12px 20px; border: 2px solid var(--primary-color); border-radius: 8px; font-size: 1rem; cursor: pointer; outline: none; appearance: none; background-color: #fff;">
+                <option value="{% url 'posts_por_categoria' 0 %}" {% if categoria_id_activa == 0 %}selected{% endif %}>
+                    Ver todas las categorías
+                </option>
+                {% for cat in categorias_list %}
+                    <option value="{% url 'posts_por_categoria' cat.pk %}" {% if categoria_id_activa == cat.pk %}selected{% endif %}>
+                        {{ cat.nombre }}
+                    </option>
+                {% endfor %}
+            </select>
+            <span style="position: absolute; left: 420px; top: 15px; pointer-events: none; color: var(--primary-color);">▼</span>
         </div>
-    </header>
-    <main class="container main-content">
-        
-        <section class="article-section listado-principal">
+    </div>
 
-            <h1 class="titulo-categoria-resaltado">Artículos de la categoría: {{ categoria.nombre }}</h1>
-            <p class="conteo-posts-filtrados">La categoría tiene {{ posts|length }} post publicado{{ posts|length|pluralize }}</p>
-            <hr>
-
-            {% for post in posts %}
-                <article class="post-card">
-                    <a href="{% url 'detalle_articulo' pk=post.pk %}" class="post-card__content">
-                        <h3 class="post-card__heading">{{ post.titulo }}</h3>
-                        <p class="post-card__summary">Publicado el {{ post.fecha_creacion|naturaltime }} por {{ post.autor }}</p>
-                    </a>
-                </article>
-            {% empty %}
-                <p>Aún no hay publicaciones en la categoría <strong>{{ categoria.nombre }}</strong>.</p>
-            {% endfor %}
-        </section>
-
-        <aside class="sidebar">
-
-           <div class="sidebar__widget">
-                <h3 class="widget__title">
-                    <i data-lucide="radio" class="icon"></i>
-                    Triskel Radio
-                </h3>
-                <p class="widget__text">
-                    Somos la voz que acompaña tu día con la mejor selección musical y los contenidos más
-                    interesantes.
-                    Desde novedades discográficas hasta las historias detrás de tus artistas favoritos. ¡Sintoniza y
-                    descubre!
-                </p>
-            </div>
-
-            <div class="sidebar__widget">
-                <h3 class="widget__title">
-                    <i data-lucide="folder" class="icon"></i>
-                    Categorías
-                </h3>
-                <ul class="widget__list">
-                    <li><a href="#">Historia Musical</a> <span class="widget__count">2</span></li>
-                        <li><a href="#">Lo mejor de </a> <span class="widget__count">1</span></li>
-                        <li><a href="#">Novedades de la radio</a> <span class="widget__count">1</span></li>
-                        <li><a href="#">Pop Argentino</a> <span class="widget__count">1</span></li>
-                        <li><a href="#">Pop Internacional</a> <span class="widget__count">1</span></li>
-                </ul>
-            </div>
-
-            <div class="sidebar__widget">
-                <h3 class="widget__title">
-                    <i data-lucide="trending-up" class="icon"></i>
-                    Los más Populares!
-                </h3>
-                <ul class="widget__list">
-                    <li>
-                        <a href="#">El fenómeno Taylor Swift</a>
-                        <span class="widget__count text-light">2.5k vistas</span>
-                    </li>
-                    <li>
-                        <a href="#">Miranda! continúa escribiendo la historia</a>
-                        <span class="widget__count text-light">1.8k vistas</span>
-                    </li>
-                    <li>
-                        <a href="#">Depeche Mode: Los Maestros</a>
-                        <span class="widget__count text-light">1.5k vistas</span>
-                    </li>
-                    <li>
-                        <a href="#">Las 20 mejores bandas estadounidenses</a>
-                        <span class="widget__count text-light">1.2k vistas</span>
-                    </li>
-                </ul>
-            </div>
-            <div class="sidebar__widget">
-                <h3 class="widget__title">
-                    <i data-lucide="tag" class="icon"></i>
-                    Etiquetas
-                </h3>
-                <div class="widget__tags">
-                    <a href="#" class="widget__tag">#Pop</a>
-                    <a href="#" class="widget__tag">#Rock</a>
-                    <a href="#" class="widget__tag">#Internacional</a>
-                    <a href="#" class="widget__tag">#Argentina</a>
-                    <a href="#" class="widget__tag">#Los 80´s</a>
-                    <a href="#" class="widget__tag">#PopLatino</a>
-                    <a href="#" class="widget__tag">#Festivales</a>
-                </div>
-            </div>
-        </aside>
-
-    </main>
-
-    <footer class="footer">
-        <div class="container">
-            <div class="footer__grid">
-                <div>
-                    <h3 class="footer__logo-footer">Blog Radio Triskel</h3>
-                    <p class="widget__text">Tu estación de radio en línea con la mejor mezcla de música y contenidos.
-                    </p>
-                </div>
-                <div>
-                    <h4 class="footer__section-title">Enlaces Rápidos</h4>
-                    <ul class="footer__list">
-                        <li><a href="{% url 'home' %}">Inicio</li>
-                        <li><a href="{% url 'lista_categorias_general' %}">Categorías</a></li>
-                        <li><a href="{% url  'eventos' %}">Eventos</a></li>
-                        <li><a href="#">Contacto</a></li>
-                        <li><a href="{% url 'pautas' %}">Pautas de la Comunidad</a></li>
-
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="footer__section-title">Categorías</h4>
-                    <ul class="footer__list">
-                        <li><a href="#">Lo mejor de</a></li>
-                        <li><a href="#">Lo nuevo de </a></li>
-                        <li><a href="#">Grupos Icónicos</a></li>
-                        <li><a href="#">Novedades de la radio</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="footer__section-title">Síguenos</h4>
-                    <div class="footer__social">
-                        <a href="#" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook">
-                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-                            </svg></a>
-
-                        <a href="#" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram">
-                                <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-                            </svg></a>
-                        <a href="#" aria-label="Email"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail">
-                                <rect width="20" height="16" x="2" y="4" rx="2" />
-                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-                            </svg></a>
+    <section style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 35px; margin-bottom: 80px;">
+        {% for post in posts %}
+            <article style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.05); transition: transform 0.3s ease; display: flex; flex-direction: column;">
+                
+                {% if post.imagen_post %}
+                    <div style="height: 230px; overflow: hidden;">
+                        <img src="{{ post.imagen_post.url }}" alt="{{ post.titulo }}" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer__copy">
-            <p class="footer__copy-text">© 2025 Blog de Triskel Radio. Proyecto Final - Grupo 2 - Informatorio Etapa 2 -
-                Todos los derechos reservados.</p>
-        </div>
-    </footer>
-    <script>
-        lucide.createIcons();
-    </script>
-</body>
+                {% else %}
+                    <div style="height: 230px; background: #f0f0f0; display: flex; align-items: center; justify-content: center;">
+                        <span style="color: #ccc;">Sin imagen</span>
+                    </div>
+                {% endif %}
 
-</html>
+                <div style="padding: 25px; border-top: 5px solid var(--primary-color); flex-grow: 1;">
+                    <span style="color: var(--primary-color); font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">
+                        {{ post.categoria_post.nombre }}
+                    </span>
+                    
+                    <h2 style="margin: 15px 0; font-size: 1.5rem; line-height: 1.2;">
+                        <a href="{% url 'detalle_articulo' post.pk %}" style="text-decoration: none; color: #1a1a1a; font-weight: 700;">
+                            {{ post.titulo }}
+                        </a>
+                    </h2>
+
+                    <p style="color: #666; font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px;">
+                        {{ post.resumen|truncatechars:140 }}
+                    </p>
+
+                    <a href="{% url 'detalle_articulo' post.pk %}" style="text-decoration: none; color: var(--primary-color); font-weight: 700; font-size: 0.9rem; display: inline-flex; align-items: center;">
+                        LEER ARTÍCULO <span style="margin-left: 5px;">→</span>
+                    </a>
+                </div>
+            </article>
+        {% empty %}
+            <div style="grid-column: 1 / -1; text-align: center; padding: 100px 0;">
+                <h3 style="color: #999;">No hay artículos disponibles en esta categoría.</h3>
+            </div>
+        {% endfor %}
+    </section>
+
+{% endblock %}

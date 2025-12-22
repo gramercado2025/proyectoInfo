@@ -39,7 +39,7 @@ def login_usuario(request):
 
             if user is not None: 
                 auth_login(request, user) # 🚨 Usar el alias
-                messages.success(request, f"Bienvenido {user.username}")
+                # messages.success(request, f"Bienvenido {user.username}")
                 # Si hay un parámetro 'next', redirige allí; si no, al 'index'
                 next_url = request.POST.get('next') or request.GET.get('next') or 'home'
                 return redirect(next_url) 

@@ -1,0 +1,211 @@
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triskel Radio</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <header class="header">
+        <div class="container header__container">
+
+            <a href="#" class="header__logo logo-with-icon">
+                <img src="{% static 'imagenes/logo radio.jpg' %}" alt="Logo de Mi Blog"
+                    onerror="this.onerror=null;this.src='https://placehold.co/60x60/f8f8f8/E53935?text=Logo';"
+                    class="logo-image">
+                Nuestro Blog
+            </a>
+
+            <nav class="header__nav">
+                <!-- Enlaces normales (Texto que se vuelve rojo al pasar el mouse) -->
+                <a href="{% url 'home' %}" class="header__link">Inicio</a>
+                <a href="{% url 'lista_categorias_general' %}" class="header__link">Categorías</a>
+                <a href="{% url  'eventos' %}" class="header__link">Eventos</a>
+                <a href="#" class="header__link">Contacto</a>
+                <a href="{% url 'pautas' %}" class="header__link">Pautas de la Comunidad</a>
+
+                {% if user.is_authenticated %}
+                    <!-- "Crear Post" ahora es un enlace normal -->
+                    <a href="{% url 'crear_post' %}" class="header__link">
+                        Crear Post
+                    </a>
+                    
+                    <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                        {% csrf_token %}
+                        <!-- "Cerrar Sesión" es un botón rojo con fondo -->
+                        <button type="submit" class="btn-rojo">
+                            Cerrar Sesión ({{ user.username }})
+                        </button>
+                    </form>
+                {% else %}
+                    <!-- "Iniciar Sesión" es un botón rojo con fondo -->
+                    <a href="{% url 'login' %}" class="btn-rojo">Iniciar Sesión</a>
+                {% endif %}            
+            </nav>
+
+            <button class="header__menu-button" aria-label="Abrir menú">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-menu">
+                    <line x1="4" x2="20" y1="12" y2="12" />
+                    <line x1="4" x2="20" y1="6" y2="6" />
+                    <line x1="4" x2="20" y1="18" y2="18" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    {% block contenido_ancho_total %}{% endblock %}
+
+    <main class="container main-content">
+        <div class="main-grid">
+            <section class="article-section">
+                {% block contenido_principal %}{% endblock %}
+            </section>
+
+            <!-- COLUMNA DE SIDEBAR (1/3 del ancho en escritorio) -->
+            <aside class="sidebar">
+
+                <!-- Widget: Sobre Nosotros -->
+                <div class="sidebar__widget">
+                    <h3 class="widget__title">
+                        <i data-lucide="radio" class="icon"></i>
+                        Triskel Radio
+                    </h3>
+                    <p class="widget__text">
+                        Somos la voz que acompaña tu día con la mejor selección musical y los contenidos más
+                        interesantes.
+                        Desde novedades discográficas hasta las historias detrás de tus artistas favoritos. ¡Sintoniza y
+                        descubre!
+                    </p>
+                </div>
+
+                <!-- Widget: Categorías -->
+                <div class="sidebar__widget">
+                    <h3 class="widget__title">
+                        <i data-lucide="folder" class="icon"></i>
+                        Categorías
+                    </h3>
+                    <ul class="widget__list">
+                        <li><a href="#">Historia Musical</a> <span class="widget__count">2</span></li>
+                        <li><a href="#">Lo mejor de </a> <span class="widget__count">1</span></li>
+                        <li><a href="#">Novedades de la radio</a> <span class="widget__count">1</span></li>
+                        <li><a href="#">Pop Argentino</a> <span class="widget__count">1</span></li>
+                        <li><a href="#">Pop Internacional</a> <span class="widget__count">1</span></li>
+                    </ul>
+                </div>
+
+                <!-- Widget: Artículos Populares -->
+                <div class="sidebar__widget">
+                    <h3 class="widget__title">
+                        <i data-lucide="trending-up" class="icon"></i>
+                        Los más Populares!
+                    </h3>
+                    <ul class="widget__list">
+                        <li>
+                            <a href="#">El fenómeno Taylor Swift</a>
+                            <span class="widget__count text-light">2.5k vistas</span>
+                        </li>
+                        <li>
+                            <a href="#">Miranda! continúa escribiendo la historia</a>
+                            <span class="widget__count text-light">1.8k vistas</span>
+                        </li>
+                        <li>
+                            <a href="#">Depeche Mode: Los Maestros</a>
+                            <span class="widget__count text-light">1.5k vistas</span>
+                        </li>
+                        <li>
+                            <a href="#">Las 20 mejores bandas estadounidenses</a>
+                            <span class="widget__count text-light">1.2k vistas</span>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Widget: Tags / Etiquetas
+                <div class="sidebar__widget">
+                    <h3 class="widget__title">
+                        <i data-lucide="tag" class="icon"></i>
+                        Etiquetas
+                    </h3>
+                    <div class="widget__tags">
+                        <a href="#" class="widget__tag">#Pop</a>
+                        <a href="#" class="widget__tag">#Rock</a>
+                        <a href="#" class="widget__tag">#Internacional</a>
+                        <a href="#" class="widget__tag">#Argentina</a>
+                        <a href="#" class="widget__tag">#Los 80´s</a>
+                        <a href="#" class="widget__tag">#PopLatino</a>
+                        <a href="#" class="widget__tag">#Festivales</a>
+                    </div>
+                </div> -->
+            </aside>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div>
+                    <h3 class="footer__logo-footer">Blog Radio Triskel</h3>
+                    <p class="widget__text">Tu estación de radio en línea con la mejor mezcla de música y contenidos.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="footer__section-title">Enlaces Rápidos</h4>
+                    <ul class="footer__list">
+                        <li><a href="{% url 'home' %}">Inicio</li>
+                        <li><a href="{% url 'lista_categorias_general' %}">Categorías</a></li>
+                        <li><a href="{% url  'eventos' %}">Eventos</a></li>
+                        <li><a href="#">Contacto</a></li>
+                        <li><a href="{% url 'pautas' %}">Pautas de la Comunidad</a></li>
+
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer__section-title">Categorías</h4>
+                    <ul class="footer__list">
+                        <li><a href="#">Lo mejor de</a></li>
+                        <li><a href="#">Lo nuevo de </a></li>
+                        <li><a href="#">Grupos Icónicos</a></li>
+                        <li><a href="#">Novedades de la radio</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer__section-title">Síguenos</h4>
+                    <div class="footer__social">
+                        <a href="#" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                            </svg></a>
+
+                        <a href="#" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram">
+                                <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+                            </svg></a>
+                        <a href="#" aria-label="Email"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail">
+                                <rect width="20" height="16" x="2" y="4" rx="2" />
+                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                            </svg></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer__copy">
+            <p class="footer__copy-text">© 2025 Blog de Triskel Radio. Proyecto Final - Grupo 2 - Informatorio Etapa 2 -
+                Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>

@@ -1,293 +1,102 @@
+{% extends 'base.html' %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="es">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eventos | Blog de Triskel Radio</title>
-
-    <script src="https://unpkg.com/lucide@latest"></script>
-
+{% block extra_head %}
     <link rel="stylesheet" href="{% static 'css/style_eventos.css' %}">
+{% endblock %}
 
-</head>
+{% block contenido_principal %}
+    <div class="event-nav" style="margin-top: 33px;">
+        <a href="#evento1" class="event-nav__item">Evento 1</a>
+        <a href="#evento2" class="event-nav__item">Evento 2</a>
+        <a href="#evento3" class="event-nav__item">Evento 3</a>
+        <a href="#evento4" class="event-nav__item">Evento 4</a>
+    </div>
+    <article class="post-detail__article" id="evento1">
+        <h1 class="post-detail__title">¡La Navidad en Radio Triskel no es solo villancicos! 🎧</h1>
 
-<body>
+        <img src="{% static 'imagenes/navidad.jpeg' %}" alt="Navidad" class="post-detail__image"
+            onerror="this.onerror=null;this.src='https://placehold.co/800x400/00BCD4/white?text=Evento+2';">
 
-    <header class="header">
-        <div class="container header__container">
+        <p class="post-detail__lead">
+            ¡La Navidad en Radio Triskel no es solo villancicos! 🎧
+        </p>
 
-            <a href="#" class="header__logo logo-with-icon">
-                <img src="{% static 'imagenes/logo radio.jpg' %}" alt="Logo de Mi Blog"
-                    onerror="this.onerror=null;this.src='https://placehold.co/60x60/f8f8f8/E53935?text=Logo';"
-                    class="logo-image">
-                Nuestro Blog
-            </a>
-
-            <nav class="header__nav">
-                <a href="{% url 'home' %}">Inicio</a>
-                <a href="{% url 'lista_categorias_general' %}">Categorías</a>
-                <a href="#">Eventos</a> <a href="#">Contacto</a>
-                <a href="{% url 'pautas' %}">Pautas de la Comunidad</a>
-            </nav>
-
-            <button class="header__search-button" aria-label="Buscar">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-search">
-                    <circle cx="11" cy="11" r="8" />
-                    <path d="m21 21-4.3-4.3" />
-                </svg>
-            </button>
-
-            <button class="header__menu-button" aria-label="Abrir menú">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-menu">
-                    <line x1="4" x2="20" y1="12" y2="12" />
-                    <line x1="4" x2="20" y1="6" y2="6" />
-                    <line x1="4" x2="20" y1="18" y2="18" />
-                </svg>
-            </button>
+        <div class="post-detail__content">
+            <p>Este sábado 20, llega nuestro Súper Especial Navideño con la mejor música 🎶 (castellano e
+                internacional).
+                ¡No seas un Grinch! 🎅 Mándanos tus audios con deseos navideños. ¡Armemos juntos el arbolito
+                más musical!🎄</p>
         </div>
-    </header>
+    </article>
 
-    <main class="container main-content">
-        <div class="main-grid">
-            <section class="article-section">
+    <hr>
 
-                <div class="event-nav">
-                    <a href="#evento1" class="event-nav__item">Evento 1</a>
-                    <a href="#evento2" class="event-nav__item">Evento 2</a>
-                    <a href="#evento3" class="event-nav__item">Evento 3</a>
-                    <a href="#evento4" class="event-nav__item">Evento 4</a>
-                </div>
-                <article class="post-detail__article" id="evento1">
-                    <h1 class="post-detail__title">¡La Navidad en Radio Triskel no es solo villancicos! 🎧</h1>
+    <article class="post-detail__article" id="evento2">
+        <h1 class="post-detail__title">🎧 Año viejo, canciones nuevas... 2025-2026 🚀</h1>
 
-                    <img src="{% static 'imagenes/navidad.jpeg' %}" alt="Navidad" class="post-detail__image"
-                        onerror="this.onerror=null;this.src='https://placehold.co/800x400/00BCD4/white?text=Evento+2';">
+        <img src="{% static 'imagenes/anio_nuevo.jpeg' %}" alt="Navidad" class="post-detail__image"
+            onerror="this.onerror=null;this.src='https://placehold.co/800x400/00BCD4/white?text=Evento+2';">
 
-                    <p class="post-detail__lead">
-                        ¡La Navidad en Radio Triskel no es solo villancicos! 🎧
-                    </p>
+        <p class="post-detail__lead">
+            ¡Despedimos el 2025 a puro hit! 🎉
+        </p>
 
-                    <div class="post-detail__content">
-                        <p>Este sábado 20, llega nuestro Súper Especial Navideño con la mejor música 🎶 (castellano e
-                            internacional).
-                            ¡No seas un Grinch! 🎅 Mándanos tus audios con deseos navideños. ¡Armemos juntos el arbolito
-                            más musical!🎄</p>
-                    </div>
-                </article>
-
-                <hr>
-
-                <article class="post-detail__article" id="evento2">
-                    <h1 class="post-detail__title">🎧 Año viejo, canciones nuevas... 2025-2026 🚀</h1>
-
-                    <img src="{% static 'imagenes/anio_nuevo.jpeg' %}" alt="Navidad" class="post-detail__image"
-                        onerror="this.onerror=null;this.src='https://placehold.co/800x400/00BCD4/white?text=Evento+2';">
-
-                    <p class="post-detail__lead">
-                        ¡Despedimos el 2025 a puro hit! 🎉
-                    </p>
-
-                    <div class="post-detail__content">
-                        <p>Hacemos un recorrido nostálgico por las canciones que te hicieron vibrar este año en Triskel.
-                            🎶 Y lo mejor: te mostramos un adelanto EXCLUSIVO de lo nuevo que sonará sin parar en el
-                            2026. 🌟
-                            Acompáñanos a este repaso musical con sorpresas, saludos y momentos inolvidables. ✨</p>
-                    </div>
-                </article>
-
-                <hr>
-
-                <article class="post-detail__article" id="evento3">
-                    <h1 class="post-detail__title"> 📻 ¡BINGO RADIAL TRISKEL! Tu Fiesta Dominical de Música y Suerte 🥳
-                    </h1>
-
-                    <img src="{% static 'imagenes/bingo.jpeg' %}" alt="Bingo" class="post-detail__image"
-                        onerror="this.onerror=null;this.src='https://placehold.co/800x400/9C27B0/white?text=Evento+3';">
-
-                    <p class="post-detail__lead">
-                        📻 ¡BINGO RADIAL TRISKEL! Tu Fiesta Dominical de Música y Suerte 🥳
-                    </p>
-
-                    <div class="post-detail__content">
-                        <p>¡Ey, Familia Triskel! ¿Ya tienes planes para el domingo? ¡Pues ya los tienes!
-                            Te invitamos a nuestro Bingo Radial Semanal, la excusa perfecta para terminar la semana con
-                            la mejor energía y la posibilidad de gritar ¡BINGO!
-                            Ponemos la casa, la buena música y la mejor onda para acompañar tus cartones. Es totalmente
-                            gratis, solo necesitas escucharnos por la Web y meterte al chat. ¡Vamos a pasarla genial!
-                        </p>
-                    </div>
-                </article>
-
-                <hr>
-
-                <article class="post-detail__article" id="evento4">
-                    <h1 class="post-detail__title">🎧 ¡Y si gente! Llega el "Viernes de Delivery" a Radio Triskel</h1>
-
-                    <img src="{% static 'imagenes/viernes_delivery.jpeg' %}" alt="Viernes Delivery" class="post-detail__image"
-                        onerror="this.onerror=null;this.src='https://placehold.co/800x400/4CAF50/white?text=Evento+4';">
-
-                    <p class="post-detail__lead">
-                        ¡Prepárate! Cada viernes, vos te convertis en el DJ. De la Radio.
-                    </p>
-
-                    <div class="post-detail__content">
-                        <p>Hace tu pedido...
-                            ✨ ¡Pedí tus Canciónes! Durante la toda semana.
-                            Agrégale si tenes Planazo (Tu previa, tu cena, tu relax...)
-                            Agendalo y Reserva tu lugar,
-                            X nuestros canales WhatsApp , Chat...
-                             Y Listo!.
-                            ¡El Viernes SALE  con fritas!
-                            ¡Anímate! No dejes que tu Previa Decaiga. Arma la Playlist de fin de semana.
-                            🎶 ¿Cuál es tu primer pedido? ¡DALEEE!</p>
-                    </div>
-                </article>
-            </section>
-
-            <aside class="sidebar">
-
-                <div class="sidebar__widget">
-                    <h3 class="widget__title">
-                        <i data-lucide="radio" class="icon"></i>
-                        Triskel Radio
-                    </h3>
-                    <p class="widget__text">
-                        Somos la voz que acompaña tu día con la mejor selección musical y los contenidos más
-                        interesantes.
-                        Desde novedades discográficas hasta las historias detrás de tus artistas favoritos. ¡Sintoniza y
-                        descubre!
-                    </p>
-                </div>
-
-                <div class="sidebar__widget">
-                    <h3 class="widget__title">
-                        <i data-lucide="folder" class="icon"></i>
-                        Categorías
-                    </h3>
-                    <ul class="widget__list">
-                        <li><a href="#">Historia Musical</a> <span class="widget__count">2</span></li>
-                        <li><a href="#">Lo mejor de </a> <span class="widget__count">1</span></li>
-                        <li><a href="#">Novedades de la radio</a> <span class="widget__count">1</span></li>
-                        <li><a href="#">Pop Argentino</a> <span class="widget__count">1</span></li>
-                        <li><a href="#">Pop Internacional</a> <span class="widget__count">1</span></li>
-                    </ul>
-                </div>
-
-                <div class="sidebar__widget">
-                    <h3 class="widget__title">
-                        <i data-lucide="trending-up" class="icon"></i>
-                        Los más Populares!
-                    </h3>
-                    <ul class="widget__list">
-                        <li>
-                            <a href="#">El fenómeno Taylor Swift</a>
-                            <span class="widget__count text-light">2.5k vistas</span>
-                        </li>
-                        <li>
-                            <a href="#">Miranda! continúa escribiendo la historia</a>
-                            <span class="widget__count text-light">1.8k vistas</span>
-                        </li>
-                        <li>
-                            <a href="#">Depeche Mode: Los Maestros</a>
-                            <span class="widget__count text-light">1.5k vistas</span>
-                        </li>
-                        <li>
-                            <a href="#">Las 20 mejores bandas estadounidenses</a>
-                            <span class="widget__count text-light">1.2k vistas</span>
-                        </li>
-                    </ul>
-                </div>
-                <!-- <div class="sidebar__widget">
-                    <h3 class="widget__title">
-                        <i data-lucide="tag" class="icon"></i>
-                        Etiquetas
-                    </h3>
-                    <div class="widget__tags">
-                        <a href="#" class="widget__tag">#Pop</a>
-                        <a href="#" class="widget__tag">#Rock</a>
-                        <a href="#" class="widget__tag">#Internacional</a>
-                        <a href="#" class="widget__tag">#Argentina</a>
-                        <a href="#" class="widget__tag">#Los 80´s</a>
-                        <a href="#" class="widget__tag">#PopLatino</a>
-                        <a href="#" class="widget__tag">#Festivales</a>
-                    </div>
-                </div> -->
-            </aside>
-
+        <div class="post-detail__content">
+            <p>Hacemos un recorrido nostálgico por las canciones que te hicieron vibrar este año en Triskel.
+                🎶 Y lo mejor: te mostramos un adelanto EXCLUSIVO de lo nuevo que sonará sin parar en el
+                2026. 🌟
+                Acompáñanos a este repaso musical con sorpresas, saludos y momentos inolvidables. ✨</p>
         </div>
-    </main>
+    </article>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer__grid">
-                <div>
-                    <h3 class="footer__logo-footer">Blog Radio Triskel</h3>
-                    <p class="widget__text">Tu estación de radio en línea con la mejor mezcla de música y contenidos.
-                    </p>
-                </div>
-                <div>
-                    <h4 class="footer__section-title">Enlaces Rápidos</h4>
-                    <ul class="footer__list">
-                        <li><a href="{% url 'home' %}">Inicio</li>
-                        <li><a href="{% url 'lista_categorias_general' %}">Categorías</a></li>
-                        <li><a href="#">Eventos</a></li>
-                        <li><a href="#">Contacto</a></li>
-                        <li><a href="{% url 'pautas' %}">Pautas de la Comunidad</a></li>
+    <hr>
 
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="footer__section-title">Categorías</h4>
-                    <ul class="footer__list">
-                        <li><a href="#">Lo mejor de</a></li>
-                        <li><a href="#">Lo nuevo de </a></li>
-                        <li><a href="#">Grupos Icónicos</a></li>
-                        <li><a href="#">Novedades de la radio</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="footer__section-title">Síguenos</h4>
-                    <div class="footer__social">
-                        <a href="#" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook">
-                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-                            </svg></a>
+    <article class="post-detail__article" id="evento3">
+        <h1 class="post-detail__title"> 📻 ¡BINGO RADIAL TRISKEL! Tu Fiesta Dominical de Música y Suerte 🥳
+        </h1>
 
-                        <a href="#" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram">
-                                <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-                            </svg></a>
-                        <a href="#" aria-label="Email"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail">
-                                <rect width="20" height="16" x="2" y="4" rx="2" />
-                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-                            </svg></a>
-                    </div>
-                </div>
-            </div>
+        <img src="{% static 'imagenes/bingo.jpeg' %}" alt="Bingo" class="post-detail__image"
+            onerror="this.onerror=null;this.src='https://placehold.co/800x400/9C27B0/white?text=Evento+3';">
+
+        <p class="post-detail__lead">
+            📻 ¡BINGO RADIAL TRISKEL! Tu Fiesta Dominical de Música y Suerte 🥳
+        </p>
+
+        <div class="post-detail__content">
+            <p>¡Ey, Familia Triskel! ¿Ya tienes planes para el domingo? ¡Pues ya los tienes!
+                Te invitamos a nuestro Bingo Radial Semanal, la excusa perfecta para terminar la semana con
+                la mejor energía y la posibilidad de gritar ¡BINGO!
+                Ponemos la casa, la buena música y la mejor onda para acompañar tus cartones. Es totalmente
+                gratis, solo necesitas escucharnos por la Web y meterte al chat. ¡Vamos a pasarla genial!
+            </p>
         </div>
-        <div class="footer__copy">
-            <p class="footer__copy-text">© 2025 Blog de Triskel Radio. Proyecto Final - Grupo 2 - Informatorio Etapa 2 -
-                Todos los derechos reservados.</p>
+    </article>
+
+    <hr>
+
+    <article class="post-detail__article" id="evento4">
+        <h1 class="post-detail__title">🎧 ¡Y si gente! Llega el "Viernes de Delivery" a Radio Triskel</h1>
+
+        <img src="{% static 'imagenes/viernes_delivery.jpeg' %}" alt="Viernes Delivery" class="post-detail__image"
+            onerror="this.onerror=null;this.src='https://placehold.co/800x400/4CAF50/white?text=Evento+4';">
+
+        <p class="post-detail__lead">
+            ¡Prepárate! Cada viernes, vos te convertis en el DJ. De la Radio.
+        </p>
+
+        <div class="post-detail__content">
+            <p>Hace tu pedido...
+                ✨ ¡Pedí tus Canciónes! Durante la toda semana.
+                Agrégale si tenes Planazo (Tu previa, tu cena, tu relax...)
+                Agendalo y Reserva tu lugar,
+                X nuestros canales WhatsApp , Chat...
+                    Y Listo!.
+                ¡El Viernes SALE  con fritas!
+                ¡Anímate! No dejes que tu Previa Decaiga. Arma la Playlist de fin de semana.
+                🎶 ¿Cuál es tu primer pedido? ¡DALEEE!</p>
         </div>
-    </footer>
+    </article>
 
-    <script>
-        // Inicializa íconos de Lucide
-        lucide.createIcons();
-    </script>
-</body>
-
-</html>
+{% endblock %}

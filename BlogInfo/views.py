@@ -111,7 +111,7 @@ def detalle_articulo(request, pk):
     return render(request, 'DetalleArticulo.html', context)
 
 
-def lista_categorias_general(request):
+""" def lista_categorias_general(request):
     
     categorias_con_conteo = Categoria.objects.annotate(
         num_posts=Count('post') 
@@ -132,6 +132,27 @@ def posts_por_categoria(request, pk):
         "posts": posts,         
     }
     return render(request, 'categorias.html', context)
+ """
+
+def posts_por_categoria(request, pk=None):
+    categorias_list = Categoria.objects.all()
+    
+    # Si pk es 0, None o no viene, mostramos todos
+    if pk and pk != 0:
+        categoria_obj = get_object_or_404(Categoria, pk=pk)
+        posts = Post.objects.filter(categoria_post=categoria_obj).order_by('-fecha_creacion')
+        activa = pk
+    else:
+        categoria_obj = {"nombre": "Todos"}
+        posts = Post.objects.all().order_by('-fecha_creacion')
+        activa = 0
+
+    return render(request, 'categorias.html', {
+        'categoria': categoria_obj,
+        'categorias_list': categorias_list,
+        'posts': posts,
+        'categoria_id_activa': activa
+    })
 
 def pautas(request):
     
