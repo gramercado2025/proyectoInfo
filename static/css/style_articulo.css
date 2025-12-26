@@ -143,6 +143,40 @@
             border-color: #b71c1c;
             color: white !important;
         }
+
+        /* Para los botones de borrar y editar */
+
+        /* Contenedor: Alinea los botones y les da aire abajo */
+        .post-admin-actions {
+            display: flex;
+            gap: 15px;           /* Espacio entre Editar y Borrar */
+            margin-top: 20px;    /* Espacio con el título/categoría */
+            margin-bottom: 40px; /* <--- Esto separa los botones del resto*/
+        }
+
+        /* El nuevo estilo 'Triskel': Blanco con borde rojo */
+        .btn-rojo-outline {
+            display: inline-block;
+            background-color: white;
+            color: #ff0000 !important; /* Usamos rojo directo o tu var(--primary-color) */
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 2px solid #ff0000;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            font-size: 0.9rem;
+        }
+
+        /* Efecto Hover: Invierte los colores */
+        .btn-rojo-outline:hover {
+            background-color: #ff0000;
+            color: white !important;
+            border-color: #ff0000;
+        }
+
         /* ==================================== */
         /* 3. Post (Artículo Principal)  */
         /* ==================================== */

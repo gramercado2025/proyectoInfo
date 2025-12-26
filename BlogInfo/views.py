@@ -7,8 +7,9 @@ from django.core.paginator import Paginator # Para la paginacion
 from django.db.models import Count
 from django.template.loader import render_to_string #para mostrar comentarios filtrados sin recargar la pagina
 from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.paginator import Paginator
+from django.core.exceptions import PermissionDenied
 
 
 def home(request):
@@ -111,29 +112,6 @@ def detalle_articulo(request, pk):
     return render(request, 'DetalleArticulo.html', context)
 
 
-""" def lista_categorias_general(request):
-    
-    categorias_con_conteo = Categoria.objects.annotate(
-        num_posts=Count('post') 
-    ).order_by('nombre')
-    
-    context = {
-        "categorias_list": categorias_con_conteo 
-    }
-    
-    return render(request, 'listado_categorias.html', context)
-
-def posts_por_categoria(request, pk):
-    
-    categoria = get_object_or_404(Categoria, pk=pk)
-    posts = Post.objects.filter(categoria_post=categoria).order_by('-fecha_creacion')
-    context = {
-        "categoria": categoria, 
-        "posts": posts,         
-    }
-    return render(request, 'categorias.html', context)
- """
-
 def posts_por_categoria(request, pk=None):
     categorias_list = Categoria.objects.all()
     
@@ -198,6 +176,7 @@ def lista_comentarios_ajax(request, pk):
 
 
 @login_required
+@user_passes_test(lambda u: u.is_staff)
 def crear_post(request):
     if request.method == 'POST':
         
@@ -206,15 +185,52 @@ def crear_post(request):
         if form.is_valid():
             nuevo_post = form.save(commit=False)
             try:
+                #Obtenemos el perfil de autor vinculado al usuario
                 autor_del_usuario = request.user.autor 
             except Autor.DoesNotExist:
                 return render(request, 'error.html', {'mensaje': 'Su cuenta no tiene un perfil de autor configurado.'})
 
             nuevo_post.autor_post = autor_del_usuario
+
             nuevo_post.save()
             form.save_m2m() 
-            return redirect('detalle_articulo', id_post=nuevo_post.id_post) 
+            # return redirect('detalle_articulo', id_post=nuevo_post.id_post) 
+            return redirect('detalle_articulo', pk=nuevo_post.id_post)
     else:
         form = PostForm()
         
     return render(request, 'crear_post.html', {'form': form})
+
+@login_required
+def editar_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    
+    # Seguridad: solo el autor puede editar
+    if post.autor_post.user != request.user:
+        return redirect('home')
+    
+    if request.method == "POST":
+        # Cargamos los datos nuevos sobre la 'instance' del post existente
+        form = PostForm(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect('detalle_articulo', pk=post.pk)
+    else:
+        # Cargamos el formulario con los datos actuales del post
+        form = PostForm(instance=post)
+    
+    return render(request, 'editar_post.html', {'form': form, 'post': post})
+
+
+@login_required
+def borrar_post(request, pk):
+    # 1. Buscamos el post por su ID (pk)
+    post = get_object_or_404(Post, pk=pk)
+    
+    # 2. Verificamos que el que intenta borrar sea el dueño
+    if post.autor_post.user == request.user:
+        post.delete()
+    
+    # 3. Redirigimos al inicio después de borrar
+    return redirect('home')
+

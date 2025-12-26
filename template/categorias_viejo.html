@@ -1,34 +1,32 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block extra_head %}
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="{% static 'css/style_categorias.css' %}">
-    
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-{% endblock %}
-
 {% block contenido_principal %}
-    <div class="filtro-categorias-container">
-        <label class="filtro-label">Explora los post de cada categoría!</label>
-        <div>
-            <select id="select-categorias" onchange="location = this.value;">
+    
+    <div style="background: white; padding: 25px; border-radius: 12px; border: 1px solid #eee; box-shadow: 0 4px 6px rgba(0,0,0,0.02); margin-bottom: 40px;">
+        <label style="font-weight: 700; color: #444; display: block; margin-bottom: 12px; font-size: 1.1rem;">
+            Explora los post de cada categoría!
+        </label>
+        <div style="position: relative;">
+            <select onchange="location = this.value;" 
+                    style="width: 100%; max-width: 450px; padding: 12px 20px; border: 2px solid var(--primary-color); border-radius: 8px; font-size: 1rem; cursor: pointer; outline: none; appearance: none; background-color: #fff;">
                 <option value="{% url 'posts_por_categoria' 0 %}" {% if categoria_id_activa == 0 %}selected{% endif %}>
-                Ver todas las categorías
+                    Ver todas las categorías
                 </option>
                 {% for cat in categorias_list %}
                     <option value="{% url 'posts_por_categoria' cat.pk %}" {% if categoria_id_activa == cat.pk %}selected{% endif %}>
                         {{ cat.nombre }}
-                </option>
+                    </option>
                 {% endfor %}
             </select>
+            <span style="position: absolute; left: 420px; top: 15px; pointer-events: none; color: var(--primary-color);">▼</span>
         </div>
     </div>
 
     <section style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 35px; margin-bottom: 80px;">
         {% for post in posts %}
             <article style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.05); transition: transform 0.3s ease; display: flex; flex-direction: column;">
+                
                 {% if post.imagen_post %}
                     <div style="height: 230px; overflow: hidden;">
                         <img src="{{ post.imagen_post.url }}" alt="{{ post.titulo }}" style="width: 100%; height: 100%; object-fit: cover;">
@@ -43,29 +41,27 @@
                     <span style="color: var(--primary-color); font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">
                         {{ post.categoria_post.nombre }}
                     </span>
+                    
                     <h2 style="margin: 15px 0; font-size: 1.5rem; line-height: 1.2;">
                         <a href="{% url 'detalle_articulo' post.pk %}" style="text-decoration: none; color: #1a1a1a; font-weight: 700;">
                             {{ post.titulo }}
                         </a>
                     </h2>
+
                     <p style="color: #666; font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px;">
                         {{ post.resumen|truncatechars:140 }}
                     </p>
+
                     <a href="{% url 'detalle_articulo' post.pk %}" style="text-decoration: none; color: var(--primary-color); font-weight: 700; font-size: 0.9rem; display: inline-flex; align-items: center;">
                         LEER ARTÍCULO <span style="margin-left: 5px;">→</span>
                     </a>
                 </div>
             </article>
+        {% empty %}
+            <div style="grid-column: 1 / -1; text-align: center; padding: 100px 0;">
+                <h3 style="color: #999;">No hay artículos disponibles en esta categoría.</h3>
+            </div>
         {% endfor %}
     </section>
 
-    <script>
-        $(document).ready(function() {
-            $('#select-categorias').select2({
-                minimumResultsForSearch: Infinity,
-                width: '100%',
-                dropdownAutoWidth: true
-            });
-        });
-    </script>
 {% endblock %}

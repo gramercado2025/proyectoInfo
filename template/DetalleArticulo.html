@@ -10,8 +10,21 @@
     <article class="post-detail__article"> 
 
         <h1 class="post-detail__title">{{ post.titulo }}</h1>
-        <span class="post-detail__category">Categoría: {{ post.categoria_post }}</span>
-
+        <span class="post-detail__category">Categoría: {{ post.categoria_post }}</span> 
+        
+        {% if user.is_authenticated and post.autor_post.user.id == user.id %}
+            <div class="post-admin-actions">
+                <a href="{% url 'editar_post' post.pk %}" class="btn-rojo-outline">
+                    Editar Post
+                </a>
+                
+                <a href="{% url 'borrar_post' post.pk %}" 
+                class="btn-rojo-outline" 
+                onclick="return confirm('¿Estás seguro de que querés borrar este post?');">
+                Borrar
+                </a>
+            </div>
+        {% endif %}        
         <div class="post-detail__meta">
             <span class="post-detail__author-meta">
             <i data-lucide="user" class="icon"></i>

@@ -1,0 +1,182 @@
+/* -------------------------------------- */
+/* 1. Fondo de la Página (body) */
+/* -------------------------------------- */
+body {
+    background-image: url('../imagenes/estudio_radio.jpg');
+    background-size: cover;         /* Cubre toda el área sin distorsionar */
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;   /* Mantiene el fondo fijo al hacer scroll */
+
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+
+/* -------------------------------------- */
+/* 2. Contenedor del Formulario (Semitransparente) */
+/* -------------------------------------- */
+.form-container { 
+    width: 100%;
+    max-width: 450px; 
+    
+    /* Fondo blanco con opacidad para dejar ver la imagen de fondo */
+    background-color: rgba(255, 255, 255, 0.9); 
+    
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Sombra más fuerte para contraste */
+    border-radius: 8px;
+}
+
+/* Título */
+.form-container h2 {
+    font-size: 1.5em;
+    font-weight: 700;
+    margin-bottom: 25px;
+    text-align: center;
+    color: #333;
+}
+
+/* -------------------------------------- */
+/* 3. Estilos para los Campos de Formulario */
+/* -------------------------------------- */
+
+form p {
+    margin-bottom: 15px;
+}
+
+form label {
+    display: block;
+    font-size: 0.9em;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+/* Estilo por defecto de todos los campos */
+form input, 
+form input[type="text"], 
+form input[type="file"],
+form textarea,
+form select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ccc; /* Borde gris claro por defecto */
+    border-radius: 4px;
+    box-sizing: border-box; 
+    font-size: 1em;
+    color: #333;
+    background-color: #fff; /* Asegura que el input no sea transparente */
+}
+
+/* ESTILO ACTIVO: Borde rojo cuando el campo está seleccionado (activo) */
+form input:focus,
+form textarea:focus,
+form select:focus {
+    border-color: #dc3545; /* Color rojo principal */
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25); /* Sombra suave roja */
+}
+
+/* ESTILO PARA LA LISTA DESPLEGABLE */
+
+/* ... Tus estilos anteriores de inputs y textareas ... */
+
+/* AGREGAR ESTO PARA SELECT2 */
+
+/* 1. Alineación del texto seleccionado (el que se ve cuando el menú está cerrado) */
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    text-align: left !important;
+    padding-left: 8px !important; /* Ajustalo para que coincida con tus otros inputs */
+    line-height: 28px; 
+    color: #333 !important;
+}
+
+/* 2. Alineación de las opciones dentro de la lista (cuando se abre) */
+.select2-results__option {
+    text-align: left !important;
+    padding-left: 12px !important;
+}
+
+/* 3. Color rojo Triskel cuando pasás el mouse por las opciones */
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #dc3545 !important;
+    color: white !important;
+}
+
+/* 4. Forzar que el contenedor de Select2 no tenga bordes raros o centrados */
+.select2-container {
+    text-align: left !important;
+}
+
+/* Estilo base del botón "Seleccionar archivo" */
+form input[type="file"]::file-selector-button {
+    border: 2px solid #dc3545; /* Borde rojo Triskel inicial */
+    background-color: transparent; /* Fondo transparente */
+    color: #dc3545; /* Texto rojo */
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease; /* Transición suave */
+    margin-right: 15px;
+}
+
+/* Efecto cuando pasas el mouse (Hover) o lo presionas */
+form input[type="file"]::file-selector-button:hover {
+    background-color: #dc3545; /* El fondo se vuelve rojo */
+    color: white; /* El texto se vuelve blanco */
+}
+
+/* Estilo del texto que dice "No se eligió archivo" */
+form input[type="file"] {
+    color: #666;
+    font-size: 0.9em;
+}
+
+/* -------------------------------------- */
+/* 4. Estilos para el Botón (Rojo) */
+/* -------------------------------------- */
+
+form button[type="submit"] {
+    width: 100%;
+    padding: 15px 20px;
+    font-size: 1em;
+    font-weight: 700;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    background-color: #dc3545; /* Color rojo principal */
+    color: #fff; /* Texto blanco */
+    margin-top: 10px;
+    text-transform: uppercase; 
+}
+
+form button[type="submit"]:hover {
+    background-color: #bb2d3b; /* Un rojo más oscuro al pasar el mouse */
+}
+
+/* -------------------------------------- */
+/* 5. Enlace de Publicar Post             */
+/* -------------------------------------- */
+
+.form-container p {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 0.95em;
+}
+
+.form-container a {
+    color: #dc3545; /* Usamos el mismo rojo para consistencia */
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.form-container a:hover {
+    text-decoration: underline;
+}
