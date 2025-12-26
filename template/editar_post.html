@@ -2,32 +2,35 @@
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crear Post</title>
+    <title>Editar Post</title>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    
+
     <!-- Carga correcta del archivo CSS usando la etiqueta static -->
-    <link rel="stylesheet" href="{% static 'css/style_crear_post.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style_editar_post.css' %}">
 </head>
+
 <body>
     <div class="form-container">
-        <h2>Escribir nuevo Post</h2>
-    
-        <form method="POST" enctype="multipart/form-data"> 
+        <h2>Editar Post</h2>
+        <h4> {{ post.titulo }} </h>
+
+        <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">
-            Publicar Post
-            </button>
+            <button type="submit">Guardar Cambios</button>
+            <a href="{% url 'detalle_articulo' post.pk %}"
+                style="display:block; text-align:center; margin-top:15px; color:#666; text-decoration:none;">Cancelar</a>
         </form>
-      </div>
- </body>
-    <script>
-    $(document).ready(function() {
+    </div>
+</body>
+<script>
+    $(document).ready(function () {
         // Buscamos el select de categorías. Django suele ponerle 'id_categoria' o similar
         $('select').select2({
             placeholder: "Selecciona una categoría",
@@ -35,4 +38,5 @@
         });
     });
 </script>
+
 </html>

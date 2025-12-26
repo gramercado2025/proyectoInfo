@@ -1,0 +1,15 @@
+     
+        <!-- {% if user.is_authenticated and user == post.autor %} -->
+        <div class="post-admin-actions" style="margin-bottom: 20px; display: flex; gap: 10px;">
+            <a href="{% url 'editar_post' post.pk %}" class="btn-rojo" style="text-decoration: none; padding: 8px 15px; font-size: 0.9rem;">
+                Editar Post
+            </a>
+            
+            <a href="{% url 'borrar_post' post.pk %}" 
+               class="btn-rojo" 
+               style="background-color: #444; text-decoration: none; padding: 8px 15px; font-size: 0.9rem;"
+               onclick="return confirm('¿Estás seguro de que querés borrar este post?');">
+               Borrar
+            </a>
+        </div>
+        <!-- {% endif %} -->

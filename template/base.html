@@ -30,10 +30,12 @@
                 <a href="{% url 'pautas' %}" class="header__link">Pautas de la Comunidad</a>
 
                 {% if user.is_authenticated %}
+                    {% if user.is_staff %}
                     <!-- "Crear Post" ahora es un enlace normal -->
                     <a href="{% url 'crear_post' %}" class="header__link">
                         Crear Post
                     </a>
+                    {% endif %}
                     
                     <form method="post" action="{% url 'logout' %}" style="display: inline;">
                         {% csrf_token %}

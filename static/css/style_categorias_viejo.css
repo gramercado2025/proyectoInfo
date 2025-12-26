@@ -1,0 +1,26 @@
+/* Estilo para el menú desplegable custom */
+.custom-select-triskel {
+    width: 100%;
+    max-width: 400px;
+    padding: 12px 15px;
+    font-size: 1rem;
+    border: 2px solid var(--primary-color); /* Rojo Triskel */
+    border-radius: 6px;
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+    outline: none;
+    appearance: none; /* Quita el estilo por defecto del sistema */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23E53935' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+}
+
+.custom-select-triskel:focus {
+    box-shadow: 0 0 0 3px rgba(229, 57, 53, 0.2);
+}
+
+.post-card-v2:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    transform: translateY(-5px);
+}

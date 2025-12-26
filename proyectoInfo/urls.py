@@ -42,7 +42,12 @@ urlpatterns = [
     
     path('articulo/<int:pk>/comentarios-ajax/', views.lista_comentarios_ajax, name='comentarios_ajax'), #ajax para filtrar comentarios
     path('crear/', views.crear_post, name='crear_post'),
-    path('articulo/<int:id_post>/', views.detalle_articulo, name='detalle_articulo'),
+    # path('articulo/<int:id_post>/', views.detalle_articulo, name='detalle_articulo'),
+
+    # Ruta para editar: post/5/editar/
+    path('post/<int:pk>/editar/', views.editar_post, name='editar_post'),
+    # Ruta para borrar: post/5/borrar/
+    path('post/<int:pk>/borrar/', views.borrar_post, name='borrar_post'),
 
 ]
 

@@ -54,7 +54,7 @@
                 <p class="post-card__excerpt">{{ post.resumen }}</p>
                 
                 <div class="post-card__meta">
-                    <span class="post-card__author-meta"> <i data-lucide="user" class="icon"></i>{{post_destacado.autor_post}}</span>
+                    <span class="post-card__author-meta"> <i data-lucide="user" class="icon"></i>{{ post.autor_post }}</span>
                     <span><i data-lucide="calendar" class="icon"></i> {{ post.fecha_creacion|date:"d/m/Y" }}</span>
                     <span><i data-lucide="clock" class="icon"></i> {{ post.fecha_creacion|naturaltime }}</span>
                     <span  class="post-card__author-meta"> <i data-lucide="message-circle" class="icon"></i>{{post.total_comentarios}} Comentarios</span>
