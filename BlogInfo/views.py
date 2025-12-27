@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.paginator import Paginator
 from django.core.exceptions import PermissionDenied
+from django.core.mail import send_mail
 
 
 def home(request):
@@ -234,3 +235,22 @@ def borrar_post(request, pk):
     # 3. Redirigimos al inicio después de borrar
     return redirect('home')
 
+def contacto(request):
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre')
+        email_usuario = request.POST.get('email')
+        mensaje = request.POST.get('mensaje')
+
+        # Cuerpo del correo que vas a recibir vos
+        cuerpo_mensaje = f"Has recibido un nuevo mensaje de: {nombre}\nCorreo: {email_usuario}\n\nEscribió:\n{mensaje}"
+
+        send_mail(
+            f'Mensaje de {nombre}',              # Asunto
+            cuerpo_mensaje,                      # Mensaje
+            email_usuario,                       # Desde quién (el usuario)
+            ['triskelradioonline@gmail.com'],    # A quién (tu correo de la radio)
+            fail_silently=False,
+        )
+        return render(request, 'contacto_exitoso.html') # Una página de "Gracias!"
+        
+    return render(request, 'contacto.html')

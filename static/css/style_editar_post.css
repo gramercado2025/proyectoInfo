@@ -38,7 +38,7 @@ body {
     font-weight: 700;
     margin-bottom: 25px;
     text-align: center;
-    color: #333;
+    color: #e63946;
 }
 
 /* -------------------------------------- */
@@ -47,14 +47,18 @@ body {
 
 form p {
     margin-bottom: 15px;
+    text-align: left !important;
+    width: 100%;
 }
 
 form label {
     display: block;
+    text-align: left !important;
     font-size: 0.9em;
-    font-weight: 700;
+    font-weight: 600;
     margin-bottom: 5px;
     color: #333;
+    width: 100%;
 }
 
 /* Estilo por defecto de todos los campos */
@@ -65,12 +69,13 @@ form textarea,
 form select {
     width: 100%;
     padding: 12px;
-    border: 2px solid #ccc; /* Borde gris claro por defecto */
+    border: 2px solid #ccc !important; /* Borde gris claro por defecto */
     border-radius: 4px;
     box-sizing: border-box; 
     font-size: 1em;
     color: #333;
     background-color: #fff; /* Asegura que el input no sea transparente */
+    width: 100% !important;
 }
 
 /* ESTILO ACTIVO: Borde rojo cuando el campo está seleccionado (activo) */

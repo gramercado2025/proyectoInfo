@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>¡Mensaje Enviado! - Triskel Radio</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        body {
+            margin: 0;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('{% static "images/tu_imagen_generada.png" %}') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: sans-serif;
+            color: white;
+            text-align: center;
+        }
+        .success-box {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            color: #333;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .icon { font-size: 50px; color: #2ecc71; margin-bottom: 20px; }
+        /* El botón con el rojo correcto */
+        .btn-enviar, .btn-volver {
+            background-color: #e63946;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-enviar:hover, .btn-volver:hover {
+            background-color: #c1121f; /* Rojo Triskel más oscuro */
+            color: white !important;   /* Forzamos que la letra siga siendo blanca */
+            text-decoration: none;     /* Por si acaso el navegador lo interpreta como link */
+        }
+    </style>
+</head>
+<body>
+    <div class="success-box">
+        <div class="icon">✔</div>
+        <h1>¡Mensaje Recibido!</h1>
+        <p>Gracias por contactarte con <strong>Triskel Radio</strong>. Leeremos tu mensaje al aire muy pronto.</p>
+        <a href="{% url 'home' %}" class="btn-volver">Volver al Inicio</a>
+    </div>
+</body>
+</html>
