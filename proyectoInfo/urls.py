@@ -48,7 +48,10 @@ urlpatterns = [
     path('post/<int:pk>/editar/', views.editar_post, name='editar_post'),
     # Ruta para borrar: post/5/borrar/
     path('post/<int:pk>/borrar/', views.borrar_post, name='borrar_post'),
-
+    
+    # Ruta para contacto
+    path('contacto/', views.contacto, name='contacto'),
+         
 ]
 
 if settings.DEBUG:

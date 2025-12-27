@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - Triskel Radio</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* Degradado y fondo */
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)), 
+                        url('{% static "imagenes/FondoContacto.png" %}') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* CORRECCIÓN: Nombre unificado a .contacto-box */
+        .contacto-box { 
+            background: rgba(255, 255, 255, 0.85); /* Transparencia como CrearPost */
+            border-radius: 0px; /* Bordes rectos */
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            color: #333;
+            text-align: center; /* Centra el título y texto */
+        }
+
+        .contacto-box h1 {
+            color: #e63946; 
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+
+        .form-group {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        /* Inputs con bordes rectos para coincidir con el box */
+        input[type="text"], 
+        input[type="email"], 
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 0px; /* Rectos como CrearPost */
+            transition: all 0.3s ease;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        /* Efecto Rojo Triskel al hacer foco */
+        input:focus, 
+        textarea:focus {
+            border-color: #e63946;
+            box-shadow: 0 0 8px rgba(230, 57, 70, 0.4);
+        }
+
+        .btn-enviar {
+            background-color: #e63946;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 0px; /* Botón recto también */
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            width: 100%; /* Botón a lo ancho */
+        }
+
+        .btn-enviar:hover {
+            background-color: #c1121f;
+        }
+
+        .volver-inicio {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="contacto-box">
+        <h1>Contactanos</h1>
+        <p>¿Tenés un pedido musical o una sugerencia?</p>
+        
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Tu Nombre</label>
+                <input type="text" name="nombre" placeholder="Ej: Juan Pérez" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Tu E-mail</label>
+                <input type="email" name="email" placeholder="nombre@correo.com" required>
+            </div>
+
+            <div class="form-group">
+                <label>Mensaje para la Radio</label>
+                <textarea name="mensaje" rows="4" placeholder="Escribí aquí..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-enviar">Enviar Mensaje</button>
+        </form>
+
+        <a href="{% url 'home' %}" class="volver-inicio">← Volver al inicio</a>
+    </div>
+</body>
+</html>

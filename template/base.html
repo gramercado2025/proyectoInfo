@@ -8,6 +8,11 @@
     <title>Triskel Radio</title>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <link rel="icon" type="image/x-icon" href="{% static 'imagenes/favicon.ico' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'imagenes/favicon-32x32.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'imagenes/apple-touch-icon.png' %}">
+
     {% block extra_head %}{% endblock %}
 </head>
 <body>
@@ -26,7 +31,7 @@
                 <a href="{% url 'home' %}" class="header__link">Inicio</a>
                 <a href="{% url 'lista_categorias_general' %}" class="header__link">Categorías</a>
                 <a href="{% url  'eventos' %}" class="header__link">Eventos</a>
-                <a href="#" class="header__link">Contacto</a>
+                <a href="{% url 'contacto' %}" class="header__link">Contacto</a>
                 <a href="{% url 'pautas' %}" class="header__link">Pautas de la Comunidad</a>
 
                 {% if user.is_authenticated %}

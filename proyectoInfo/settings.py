@@ -258,3 +258,11 @@ LOGOUT_REDIRECT_URL = '/' #para que redirija si no tiene a donde y el logout fun
 LOGIN_REDIRECT_URL = '/' 
 
 LOGIN_URL = '/'
+
+# Configuración para enviar correos (Ejemplo con Gmail)
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'triskelradioonline@gmail.com' # El correo de la radio
+EMAIL_HOST_PASSWORD = 'qhtjtazqucalmxqy' # No es tu clave normal, es una especial
